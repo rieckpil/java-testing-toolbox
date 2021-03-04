@@ -1,4 +1,4 @@
-# Testing Tools & Libraries Every Java Developer Must Know
+# Full Overview Of The Java Testing Ecosystem
 
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
