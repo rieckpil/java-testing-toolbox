@@ -2,6 +2,12 @@
 
 [![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
 
+<p align="center">
+  <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
+    <img src="https://rieckpil.de/wp-content/uploads/2020/11/testing-tools-book-cover-design-one-585x813.jpg.webp" alt=" Book Cover"/>
+  </a>
+</p>
+
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
