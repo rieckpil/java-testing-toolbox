@@ -1,5 +1,7 @@
 # Full Overview Of The Java Testing Ecosystem
 
+[![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
+
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
