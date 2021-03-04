@@ -29,7 +29,7 @@ class DashboardControllerWebTest {
   @BeforeAll
   static void configure() {
     ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+    chromeOptions.addArguments("--no-sandbox", "--disable-dev-shm-usage", "--headless", "--disable-gpu");
 
     Configuration.browserCapabilities = chromeOptions;
 
@@ -69,15 +69,5 @@ class DashboardControllerWebTest {
     Selenide.$(By.id("all-customers")).should(Condition.exist);
 
     Selenide.$$(By.className("customer-information")).shouldHave(CollectionCondition.size(3));
-  }
-
-  @Test
-  @Disabled("Showcase only")
-  void accessDashboardWithFirefox() {
-    Configuration.browser = "firefox";
-    Configuration.browserSize = "1337x1337";
-    Configuration.timeout = 2000;
-
-    Selenide.open("http://localhost:" + port + "/dashboard");
   }
 }
