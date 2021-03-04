@@ -16,7 +16,7 @@ Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java
 
 - Enrich your existing testing toolbox
 - Use the right tool for the job
-- Inform about the various tools & libraries of the Java testing ecosystem
+- Inform about various tools & libraries of the Java testing ecosystem
 - Cookbook-style introduction of each tool & library
 - Hands-on testing examples that apply for testing any Java application
 
