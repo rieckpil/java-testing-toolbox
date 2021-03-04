@@ -220,6 +220,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>selenium</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.microshed</groupId>
       <artifactId>microshed-testing-liberty</artifactId>
       <version>${microshed-testing.version}</version>
