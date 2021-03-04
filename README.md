@@ -1,4 +1,4 @@
-# Full Overview Of The Java Testing Ecosystem
+# Full Overview of the Java Testing Ecosystem
 
 [![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
 
