@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
-    <img src="https://rieckpil.de/wp-content/uploads/2020/11/testing-tools-book-cover-design-one-585x813.jpg.webp" alt=" Book Cover"/>
+    <img src="https://rieckpil.de/wp-content/uploads/2021/03/testing-tools-book-cover-design-one-scaled-e1614863325111.jpg" alt=" Book Cover"/>
   </a>
 </p>
 
