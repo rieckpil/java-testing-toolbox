@@ -1,0 +1,26 @@
+name: Maven Build
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    name: Build & Test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11.0
+
+      - name: Set up cache
+        uses: actions/cache@v1
+
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build the project
+        run: ./mvnw -B verify
