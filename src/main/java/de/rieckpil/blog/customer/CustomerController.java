@@ -66,7 +66,7 @@ public class CustomerController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> createNewUser(
+  public ResponseEntity<Void> createNewCustomer(
     @RequestBody CustomerCreationRequest request,
     UriComponentsBuilder uriComponentsBuilder) {
 
