@@ -8,16 +8,16 @@ import java.lang.reflect.Method;
 
 public class ReviewValidationTest {
 
-  private ReviewValidation cut;
+  private ReviewValidation cut = new ReviewValidation();
 
   @BeforeSuite
   public void beforeSuite() {
     System.out.println("Before Suite");
   }
 
-  @BeforeTest
-  public void beforeTest() {
-    System.out.println("Before Test");
+  @BeforeGroups
+  public void beforeGroups() {
+    System.out.println("Before Groups");
   }
 
   @BeforeClass
@@ -25,10 +25,14 @@ public class ReviewValidationTest {
     System.out.println("Before Class");
   }
 
+  @BeforeTest
+  public void beforeTest() {
+    System.out.println("Before Test");
+  }
+
   @BeforeMethod
   public void beforeMethod() {
     System.out.println("Before Method");
-    this.cut = new ReviewValidation();
   }
 
   @Test(groups = {"edge-cases"})

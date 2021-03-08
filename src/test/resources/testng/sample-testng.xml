@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="First Test Suite" verbose="1" >
+  <test name="Edge Cases">
+    <groups>
+      <run>
+        <include name="edge-cases"/>
+      </run>
+    </groups>
+    <packages>
+      <package name="de.rieckpil.blog.testng" />
+    </packages>
+  </test>
+</suite>
+
