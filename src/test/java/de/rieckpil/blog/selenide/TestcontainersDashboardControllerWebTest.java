@@ -43,7 +43,7 @@ class TestcontainersDashboardControllerWebTest {
   @Test
   void accessDashboardPage() {
 
-    Selenide.open("http://" + getHost() + ":" + +port + "/dashboard");
+    Selenide.open("http://" + getHost() + ":" + port + "/dashboard");
 
     Selenide.$(By.tagName("button")).click();
 
