@@ -13,6 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.shaded.org.apache.commons.lang.SystemUtils;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -42,7 +43,7 @@ class TestcontainersDashboardControllerWebTest {
   @Test
   void accessDashboardPage() {
 
-    Selenide.open("http://172.17.0.1:" + port + "/dashboard");
+    Selenide.open("http://" + getHost() + ":" + +port + "/dashboard");
 
     Selenide.$(By.tagName("button")).click();
 
@@ -57,7 +58,7 @@ class TestcontainersDashboardControllerWebTest {
 
   @Test
   void accessDashboardPageAndLoadCustomers() {
-    Selenide.open("http://172.17.0.1:" + port + "/dashboard");
+    Selenide.open("http://" + getHost() + ":" + port + "/dashboard");
 
     // customer table should not be part of the DOM
     Selenide.$(By.id("all-customers")).shouldNot(Condition.exist);
@@ -73,5 +74,9 @@ class TestcontainersDashboardControllerWebTest {
     Selenide.$(By.id("all-customers")).should(Condition.exist);
 
     Selenide.$$(By.className("customer-information")).shouldHave(CollectionCondition.size(3));
+  }
+
+  private String getHost() {
+    return SystemUtils.IS_OS_LINUX ? "172.17.0.1" : "host.docker.internal";
   }
 }
