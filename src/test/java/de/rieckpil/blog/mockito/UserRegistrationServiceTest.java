@@ -1,5 +1,8 @@
-package de.rieckpil.blog.registration;
+package de.rieckpil.blog.mockito;
 
+import de.rieckpil.blog.registration.User;
+import de.rieckpil.blog.registration.UserRegistrationService;
+import de.rieckpil.blog.registration.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -38,23 +41,36 @@ class UserRegistrationServiceTest {
   void shouldNotReCreateExistingUser() {
     Mockito.when(userRepository.findByUsername("duke")).thenReturn(new User());
 
-    // Or be more generic
+    User result = this.cut.registerUser("duke");
+  }
+
+  @Test
+  void shouldNotReCreateExistingUserGeneric() {
     Mockito.when(userRepository.findByUsername(ArgumentMatchers.anyString()))
       .thenReturn(new User());
 
     User result = this.cut.registerUser("duke");
   }
 
-@Test
-void shouldPropagateException() {
-  Mockito.when(userRepository.findByUsername("devil"))
-    .thenThrow(new RuntimeException("DEVIL'S SQL EXCEPTION"));
+  @Test
+  void shouldFailDueToUnnecessaryStubbing() {
+    Mockito.when(userRepository.findByEmail(ArgumentMatchers.anyString()))
+      .thenReturn(new User());
 
-  assertThrows(RuntimeException.class, () -> cut.registerUser("devil"));
+    // we won't use the .findByEmail() method internally
+    this.cut.registerUser("duke");
+  }
 
-  Mockito.verify(userRepository, never()).save(ArgumentMatchers.any(User.class));
-  Mockito.verify(userRepository, times(1)).findByUsername("devil");
-}
+  @Test
+  void shouldPropagateException() {
+    Mockito.when(userRepository.findByUsername("devil"))
+      .thenThrow(new RuntimeException("DEVIL'S SQL EXCEPTION"));
+
+    assertThrows(RuntimeException.class, () -> cut.registerUser("devil"));
+
+    Mockito.verify(userRepository, never()).save(ArgumentMatchers.any(User.class));
+    Mockito.verify(userRepository, times(1)).findByUsername("devil");
+  }
 
   @Test
   void shouldCreateUnknownUser() {
