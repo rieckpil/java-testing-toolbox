@@ -65,7 +65,7 @@ public class CustomerController {
     return Arrays.asList(customerOne, customerTwo, customerThree);
   }
 
-  @PostMapping
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   public ResponseEntity<Void> createNewCustomer(
     @RequestBody CustomerCreationRequest request,
     UriComponentsBuilder uriComponentsBuilder) {

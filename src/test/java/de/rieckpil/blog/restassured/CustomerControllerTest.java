@@ -4,6 +4,8 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -33,8 +35,20 @@ class CustomerControllerTest {
       .get(URI.create("http://localhost:" + port + "/api/customers"))
     .then()
       .statusCode(200)
-      .header("Content-Type", equalTo("application/json"))
-      .body("[0].username", equalTo("duke42"));
+      .header("Content-Type", Matchers.equalTo("application/json"))
+      .body("[0].username", Matchers.equalTo("duke42"));
+  }
+
+  @Test
+  void basicRESTAssuredHTTPPostJSONExample() {
+    given()
+      .contentType("application/json")
+      .body("{\"username\":\"duke\"}")
+    .when()
+      .post(URI.create("http://localhost:" + port + "/api/customers"))
+    .then()
+      .statusCode(201)
+      .header("Location", Matchers.notNullValue());
   }
 
   @Test
