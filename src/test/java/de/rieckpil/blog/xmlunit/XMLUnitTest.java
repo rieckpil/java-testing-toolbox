@@ -23,6 +23,7 @@ import org.xmlunit.xpath.XPathEngine;
 import javax.xml.transform.Source;
 import java.io.IOException;
 
+import static java.nio.charset.StandardCharsets.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,7 +82,7 @@ public class XMLUnitTest {
   void xPathTestExample() throws IOException {
 
     Source responseBody = Input
-      .fromString(new String(this.getClass().getResourceAsStream("/xml/customers.xml").readAllBytes()))
+      .fromString(new String(this.getClass().getResourceAsStream("/xml/customers.xml").readAllBytes(), UTF_8))
       .build();
 
     XPathEngine xpath = new JAXPXPathEngine();
