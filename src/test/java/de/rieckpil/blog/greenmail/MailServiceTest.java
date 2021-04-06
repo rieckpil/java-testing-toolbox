@@ -19,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MailServiceTest {
 
   @RegisterExtension
-  static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP_IMAP);
+  static GreenMailExtension greenMail =
+    new GreenMailExtension(ServerSetupTest.SMTP_IMAP);
 
   private MailService cut;
 
