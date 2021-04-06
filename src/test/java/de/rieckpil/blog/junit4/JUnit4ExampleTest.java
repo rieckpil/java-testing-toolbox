@@ -48,6 +48,15 @@ public class JUnit4ExampleTest {
   }
 
   @Test
+  public void shouldThrowExceptionNew() {
+    RuntimeException result = Assert.assertThrows(RuntimeException.class, () -> {
+      throw new RuntimeException("Error in test with no cause");
+    });
+
+    Assert.assertNull(result.getCause());
+  }
+
+  @Test
   @Category(DatabaseTests.class)
   public void testDatabaseQuery() {
 
@@ -61,21 +70,21 @@ public class JUnit4ExampleTest {
 
     int[] openInvoiceIds = {42, 13, 7};
 
-  Assert.assertEquals("Message on failure", 42L, 40L + 2L);
-  Assert.assertNotEquals("duke", "gopher");
+    Assert.assertEquals("Message on failure", 42L, 40L + 2L);
+    Assert.assertNotEquals("duke", "gopher");
 
-  Assert.assertTrue("Message on failure", 4 % 2 == 0);
+    Assert.assertTrue("Message on failure", 4 % 2 == 0);
 
-  Assert.assertNotNull(new BigDecimal("42"));
+    Assert.assertNotNull(new BigDecimal("42"));
 
-  Assert.assertThrows(ArithmeticException.class, () -> {
-    int result = 4 / 0;
-  });
+    Assert.assertThrows(ArithmeticException.class, () -> {
+      int result = 4 / 0;
+    });
 
-  // checks for equal object references using ==
-  Assert.assertSame(userOne, userTwo);
+    // checks for equal object references using ==
+    Assert.assertSame(userOne, userTwo);
 
-  Assert.assertArrayEquals(new int[]{42, 13, 7}, openInvoiceIds);
+    Assert.assertArrayEquals(new int[]{42, 13, 7}, openInvoiceIds);
 
   }
 }
