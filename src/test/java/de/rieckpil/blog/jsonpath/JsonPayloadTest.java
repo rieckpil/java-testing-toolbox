@@ -31,7 +31,6 @@ class JsonPayloadTest {
     String username = JsonPath.parse(jsonPayload).read("$[0].username");
     String city = JsonPath.parse(jsonPayload).read("$[0].address.city");
 
-
     List<String> tags = JsonPath.parse(jsonPayload).read("$..tags[0,1,2]");
     List<String> productNames = JsonPath.parse(jsonPayload).read("$[1,2].orders[0]..name");
 
