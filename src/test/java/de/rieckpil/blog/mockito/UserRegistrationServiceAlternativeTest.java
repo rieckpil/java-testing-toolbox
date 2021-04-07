@@ -2,6 +2,7 @@ package de.rieckpil.blog.mockito;
 
 import de.rieckpil.blog.registration.UserRegistrationService;
 import de.rieckpil.blog.registration.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,9 +20,17 @@ class UserRegistrationServiceAlternativeTest {
   @InjectMocks
   private UserRegistrationService cut;
 
+  private AutoCloseable openMocks;
+
   @BeforeEach
   void setupMocks() {
-    MockitoAnnotations.openMocks(this);
+    // .openMocks returns a AutoClosable which should be closed after the test
+    this.openMocks = MockitoAnnotations.openMocks(this);
+  }
+
+  @AfterEach
+  void tearDown() throws Exception {
+    this.openMocks.close();
   }
 
   @Test
