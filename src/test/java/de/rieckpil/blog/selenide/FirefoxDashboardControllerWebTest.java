@@ -56,7 +56,7 @@ class FirefoxDashboardControllerWebTest {
 
     Selenide.screenshot("post-customer-fetch");
 
-    // the customer table should not be part of the DOM
+    // the customer table should now be part of the DOM
     Selenide.$(By.id("all-customers")).should(Condition.exist);
 
     Selenide.$$(By.className("customer-information")).shouldHave(CollectionCondition.size(3));
