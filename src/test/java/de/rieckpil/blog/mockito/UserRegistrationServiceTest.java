@@ -14,8 +14,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
@@ -33,8 +37,11 @@ class UserRegistrationServiceTest {
   void shouldNotReCreateExistingUserWrongStubbing() {
     Mockito.when(userRepository.findByUsername("mike")).thenReturn(new User());
 
-    // Our mock will return null as the stubbing setup doesn't match
-    this.cut.registerUser("duke");
+    // Our mock will return null as the .findByUsername() stubbing setup doesn't match
+    User result = this.cut.registerUser("duke");
+
+    // As we don't provide a stubbing for .save() the repository returns null
+    assertNull(result);
   }
 
   @Test
@@ -58,7 +65,7 @@ class UserRegistrationServiceTest {
       .thenReturn(new User());
 
     // we won't use the .findByEmail() method internally
-    this.cut.registerUser("duke");
+    User result = this.cut.registerUser("duke");
   }
 
   @Test
