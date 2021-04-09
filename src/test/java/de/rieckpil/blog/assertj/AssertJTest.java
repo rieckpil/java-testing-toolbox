@@ -7,6 +7,7 @@ import de.rieckpil.blog.customer.Product;
 import de.rieckpil.blog.registration.User;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -40,6 +41,14 @@ public class AssertJTest {
       .hasMessageContaining("5432")
       .isInstanceOf(RuntimeException.class)
       .hasNoCause();
+
+    Assertions
+      .assertThatExceptionOfType(RuntimeException.class)
+      .isThrownBy(() -> {
+        throw new RuntimeException("Can't reach database on port 5432");
+      })
+      .withNoCause()
+      .withMessageContaining("5432");
   }
 
   @Test
@@ -56,16 +65,14 @@ public class AssertJTest {
 
   @Test
   void softAssertions() {
-    Assertions.assertThatThrownBy(() -> {
-      SoftAssertions softAssertions = new SoftAssertions();
+    SoftAssertions softAssertions = new SoftAssertions();
 
-      softAssertions.assertThat("duke")
-        .hasSize(5)
-        .isEqualTo("ekud")
-        .startsWith("m");
+    softAssertions.assertThat("duke")
+      .hasSize(5)
+      .isEqualTo("ekud")
+      .startsWith("m");
 
-      softAssertions.assertAll();
-    });
+    softAssertions.assertAll();
   }
 
   @Test
@@ -84,6 +91,14 @@ public class AssertJTest {
       .extracting(User::getCreatedAt)
       .filteredOn(createdAt -> createdAt.isBefore(LocalDateTime.now()))
       .hasSize(2);
+
+    // make sure to use org.assertj.core.groups.Tuple
+    Assertions
+      .assertThat(List.of(
+        new User(42L, "duke", LocalDateTime.now().minusMonths(3)),
+        new User(13L, "alice", LocalDateTime.MIN)))
+      .extracting(User::getId, User::getUsername)
+      .containsExactlyInAnyOrder(Tuple.tuple(13L, "alice"), Tuple.tuple(42L, "duke"));
 
     Assertions
       .assertThat(List.of("duke", "mike", "anna", "john"))

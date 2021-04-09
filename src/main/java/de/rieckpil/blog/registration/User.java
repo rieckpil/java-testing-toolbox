@@ -16,6 +16,12 @@ public class User {
     this.createdAt = createdAt;
   }
 
+  public User(Long id, String username, LocalDateTime createdAt) {
+    this.id = id;
+    this.username = username;
+    this.createdAt = createdAt;
+  }
+
   public String getUsername() {
     return username;
   }
