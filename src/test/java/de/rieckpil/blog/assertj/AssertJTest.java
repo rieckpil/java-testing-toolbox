@@ -65,14 +65,18 @@ public class AssertJTest {
 
   @Test
   void softAssertions() {
-    SoftAssertions softAssertions = new SoftAssertions();
+    Assertions
+      .assertThatExceptionOfType(AssertionError.class)
+      .isThrownBy(() -> {
+      SoftAssertions softAssertions = new SoftAssertions();
 
-    softAssertions.assertThat("duke")
-      .hasSize(5)
-      .isEqualTo("ekud")
-      .startsWith("m");
+      softAssertions.assertThat("duke")
+        .hasSize(5)
+        .isEqualTo("ekud")
+        .startsWith("m");
 
-    softAssertions.assertAll();
+      softAssertions.assertAll();
+    });
   }
 
   @Test
