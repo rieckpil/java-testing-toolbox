@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
-    <img src="https://rieckpil.de/wp-content/uploads/2021/03/testing-tools-book-cover-design-one-scaled-e1614863325111.jpg" alt=" Book Cover"/>
+    <img src="https://rieckpil.de/wp-content/uploads/2021/04/testing-tools-and-libraries-every-java-developer-must-know-book-cover-1-e1617971322966.png" alt=" Book Cover"/>
   </a>
 </p>
 
@@ -33,7 +33,7 @@ Build the project and run all tests with `./mvnw verify`.
 
 The book uses a Spring Boot application to demonstrate tools & libraries that test. However, all code examples use a minimal amount of Spring Boot specifics so that you can easily apply them to your application.
 
-### Test Runner
+### Test Frameworks
 
 ### Assertion Libraries
 
