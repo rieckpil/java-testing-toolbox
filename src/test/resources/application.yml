@@ -1,0 +1,7 @@
+cloud:
+  aws:
+    region:
+      static: eu-central-1
+    credentials:
+      access-key: foo
+      secret-key: bar
