@@ -5,3 +5,9 @@ cloud:
     credentials:
       access-key: foo
       secret-key: bar
+    sns:
+      enabled: false
+    sqs:
+      enabled: false
+    stack:
+      enabled: false

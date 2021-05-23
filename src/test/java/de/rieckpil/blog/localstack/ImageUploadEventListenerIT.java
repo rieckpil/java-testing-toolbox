@@ -31,6 +31,7 @@ public class ImageUploadEventListenerIT {
 
   @DynamicPropertySource
   static void configureLocalStackAccess(DynamicPropertyRegistry registry) {
+    registry.add("cloud.aws.sqs.enabled", () -> true);
     registry.add("cloud.aws.s3.endpoint", () -> localStack.getEndpointOverride(S3));
     registry.add("cloud.aws.sqs.endpoint", () -> localStack.getEndpointOverride(SQS));
   }
