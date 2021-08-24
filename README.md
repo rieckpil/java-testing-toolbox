@@ -10,6 +10,8 @@
 
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
+**Current Status**: 15/30 tools and libraries are covered.
+
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
 
 ## Goals of the Book
@@ -31,16 +33,52 @@ Build the project and run all tests with `./mvnw verify`.
 
 ## Content
 
-The book uses a Spring Boot application to demonstrate tools & libraries that test. However, all code examples use a minimal amount of Spring Boot specifics so that you can easily apply them to your application.
+The book uses a Spring Boot application to demonstrate tools & libraries that test. However, some code examples use a minimal amount of Spring Boot or Jakarta EE specifics so that you can easily apply the learnings to your application.
 
 ### Test Frameworks
 
+- [x] JUnit 4
+- [x] JUnit 5
+- [x] TestNG
+- [ ] Spock
+
 ### Assertion Libraries
+
+- [x] AssertJ
+- [x] JsonPath
+- [x] Hamcrest
+- [x] XMLUnit
+- [x] JSONAssert
+- [x] REST Assured
 
 ### Mocking Frameworks
 
+- [x] Mockito
+- [x] WireMock
+- [x] MockWebServer
+- [ ] PowerMock
+
 ### Test Infrastructure
+
+- [x] Testcontainers
+- [x] LocalStack
+- [ ] MicroShed Testing (upcoming)
+- [ ] Citrus
+- [x] GreenMail
+- [ ] Selenium (upcoming)
 
 ### Utility Libraries
 
+- [x] Selenide
+- [ ] Pact (upcoming)
+- [ ] Spring Cloud Contract
+- [ ] Diffblue
+- [ ] FitNesse
+- [ ] Awaitility (upcoming)
+
 ### Performance Testing
+
+- [ ] JMH
+- [ ] JMeter
+- [ ] Gatling
+- [ ] Quick Perf
