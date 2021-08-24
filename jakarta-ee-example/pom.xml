@@ -17,7 +17,19 @@
     <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
     <mockito-core.version>3.12.1</mockito-core.version>
+    <microshed-testing.version>0.9.1</microshed-testing.version>
+    <testcontainers.version>1.15.0</testcontainers.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers</artifactId>
+        <version>${testcontainers.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -37,6 +49,11 @@
       <artifactId>mockito-core</artifactId>
       <version>${mockito-core.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.microshed</groupId>
+      <artifactId>microshed-testing-liberty</artifactId>
+      <version>${microshed-testing.version}</version>
     </dependency>
   </dependencies>
 
