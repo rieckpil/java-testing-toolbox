@@ -10,7 +10,7 @@
 
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
-**Current Status**: 15/30 tools and libraries are covered.
+**Current Status**: 15/30 tools and libraries are covered. The next release (20/30) is scheduled for end of September 2021.
 
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
 
@@ -29,11 +29,19 @@ Requirements:
 - Java 11
 - Running Docker engine (required for Testcontainers)
 
-Build the project and run all tests with `./mvnw verify`.
+Build the project and run all tests with
+
+```shell
+cd spring-boot-example
+./mvnw verify
+
+cd jakarta-ee-example
+./mvnw verify
+```
 
 ## Content
 
-The book uses a Spring Boot application to demonstrate tools & libraries that test. However, some code examples use a minimal amount of Spring Boot or Jakarta EE specifics so that you can easily apply the learnings to your application.
+The book uses a Spring Boot and Jakarta EE application to demonstrate the different tools & libraries. Only some code examples use a minimal amount of Spring Boot or Jakarta EE specifics so that you can easily apply the learnings to your tech stack.
 
 ### Test Frameworks
 
