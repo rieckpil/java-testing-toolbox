@@ -14,7 +14,7 @@
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jakarta.jakartaee-api.version>9.0.0</jakarta.jakartaee-api.version>
+    <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
     <mockito-core.version>3.12.1</mockito-core.version>
   </properties>
@@ -63,6 +63,15 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <version>3.3.4</version>
+        <configuration>
+          <libertyRuntimeVersion>21.0.0.8</libertyRuntimeVersion>
+          <serverStartTimeout>60</serverStartTimeout>
+        </configuration>
       </plugin>
     </plugins>
   </build>
