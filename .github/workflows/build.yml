@@ -1,28 +1,34 @@
 name: Maven Build
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
-  build:
+  build-sample-projects:
+    strategy:
+      fail-fast: false
+      matrix:
+        projects: [ 'spring-boot-example', 'jakarta-ee-example' ]
     runs-on: ubuntu-20.04
-    name: Build & Test
+    name: Build & Test Project ${{ matrix.projects }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: 11.0
+          distribution: 'adopt'
+          java-package: 'jdk'
 
       - name: Set up cache
-        uses: actions/cache@v1
-
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ matrix.projects }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            ${{ runner.os }}-maven-${{ matrix.projects }}-
 
       - name: Build the project
+        working-directory: ${{ matrix.projects }}
         run: ./mvnw -B verify

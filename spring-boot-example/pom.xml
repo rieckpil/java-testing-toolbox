@@ -11,7 +11,7 @@
   </parent>
 
   <groupId>de.rieckpil.blog</groupId>
-  <artifactId>java-testing-ecosystem</artifactId>
+  <artifactId>spring-boot-example</artifactId>
   <version>1.0.0</version>
   <name>java-testing-ecosystem</name>
 
