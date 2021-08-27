@@ -10,7 +10,7 @@
 
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
-**Current Status**: 15/30 tools and libraries are covered. The next release (20/30) is scheduled for end of September 2021.
+**Current Status**: 15/30 tools and libraries are covered. The next release (20/30) is scheduled for Q4 2021.
 
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
 
