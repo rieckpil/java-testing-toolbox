@@ -6,11 +6,12 @@ import org.microshed.testing.testcontainers.ApplicationContainer;
 import org.testcontainers.containers.MockServerContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.utility.DockerImageName;
 
 class SampleApplicationConfig implements SharedContainerConfiguration {
 
   @Container
-  static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>()
+  public static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>()
     .withNetworkAliases("mypostgres")
     .withExposedPorts(5432)
     .withUsername("duke")
@@ -18,11 +19,11 @@ class SampleApplicationConfig implements SharedContainerConfiguration {
     .withDatabaseName("users");
 
   @Container
-  static MockServerContainer mockServer = new MockServerContainer()
+  public static MockServerContainer mockServer = new MockServerContainer(DockerImageName.parse("jamesdbloom/mockserver:mockserver-5.5.4"))
     .withNetworkAliases("mockserver");
 
   @Container
-  static ApplicationContainer app = new ApplicationContainer()
+  public static ApplicationContainer app = new ApplicationContainer()
     .withEnv("POSTGRES_HOSTNAME", "mypostgres")
     .withEnv("POSTGRES_PORT", "5432")
     .withEnv("POSTGRES_USERNAME", "duke")
