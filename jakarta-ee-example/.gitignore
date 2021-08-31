@@ -20,3 +20,6 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# PostgreSQL JDBC Driver
+/src/main/liberty/config/postgres

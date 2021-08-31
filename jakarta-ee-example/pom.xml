@@ -15,18 +15,23 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
+    <microprofile.version>4.0.1</microprofile.version>
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
     <mockito-core.version>3.12.1</mockito-core.version>
     <microshed-testing.version>0.9.1</microshed-testing.version>
     <testcontainers.version>1.15.0</testcontainers.version>
+    <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
+    <mockserver-client-java.version>5.11.2</mockserver-client-java.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.testcontainers</groupId>
-        <artifactId>testcontainers</artifactId>
+        <artifactId>testcontainers-bom</artifactId>
         <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -38,6 +43,14 @@
       <version>${jakarta.jakartaee-api.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <version>${microprofile.version}</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -54,6 +67,23 @@
       <groupId>org.microshed</groupId>
       <artifactId>microshed-testing-liberty</artifactId>
       <version>${microshed-testing.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>mockserver</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mock-server</groupId>
+      <artifactId>mockserver-client-java</artifactId>
+      <version>${mockserver-client-java.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -88,6 +118,33 @@
         <configuration>
           <libertyRuntimeVersion>21.0.0.8</libertyRuntimeVersion>
           <serverStartTimeout>60</serverStartTimeout>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>copyJDBCDriver</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <version>${postgresql-jdbc-driver.version}</version>
+              <type>jar</type>
+              <overWrite>false</overWrite>
+              <outputDirectory>${project.basedir}/src/main/liberty/postgres</outputDirectory>
+              <destFileName>jdbc-driver-${postgresql-jdbc-driver.version}.jar</destFileName>
+            </artifactItem>
+          </artifactItems>
         </configuration>
       </plugin>
     </plugins>
