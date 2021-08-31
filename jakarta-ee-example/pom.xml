@@ -141,7 +141,7 @@
               <version>${postgresql-jdbc-driver.version}</version>
               <type>jar</type>
               <overWrite>false</overWrite>
-              <outputDirectory>${project.basedir}/src/main/liberty/postgres</outputDirectory>
+              <outputDirectory>${project.basedir}/src/main/liberty/config/postgres</outputDirectory>
               <destFileName>jdbc-driver-${postgresql-jdbc-driver.version}.jar</destFileName>
             </artifactItem>
           </artifactItems>
