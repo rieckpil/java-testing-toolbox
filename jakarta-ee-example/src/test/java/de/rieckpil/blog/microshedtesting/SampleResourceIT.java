@@ -3,6 +3,7 @@ package de.rieckpil.blog.microshedtesting;
 import javax.json.Json;
 
 import de.rieckpil.blog.SampleResource;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.SharedContainerConfig;
 import org.microshed.testing.jaxrs.RESTClient;
@@ -17,6 +18,7 @@ import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.MediaType.JSON_UTF_8;
 
+@Disabled
 @MicroShedTest
 @SharedContainerConfig(SampleApplicationConfig.class)
 class SampleResourceIT {

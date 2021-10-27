@@ -4,6 +4,7 @@ import javax.ws.rs.core.Response;
 
 import de.rieckpil.blog.Person;
 import de.rieckpil.blog.PersonResource;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.SharedContainerConfig;
 import org.microshed.testing.jaxrs.RESTClient;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled
 @MicroShedTest
 @SharedContainerConfig(SampleApplicationConfig.class)
 class PersonResourceIT {
