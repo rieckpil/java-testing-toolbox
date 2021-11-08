@@ -14,11 +14,6 @@ import org.springframework.messaging.handler.annotation.support.PayloadMethodArg
 public class MessagingConfig {
 
   @Bean
-  public QueueMessagingTemplate queueMessagingTemplate(AmazonSQSAsync amazonSQSAsync) {
-    return new QueueMessagingTemplate(amazonSQSAsync);
-  }
-
-  @Bean
   public QueueMessageHandlerFactory queueMessageHandlerFactory() {
     QueueMessageHandlerFactory factory = new QueueMessageHandlerFactory();
     MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
