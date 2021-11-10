@@ -7,7 +7,6 @@ import spock.lang.Unroll
 class ReviewValidationSpec extends Specification {
   private ReviewValidation cut = new ReviewValidation()
 
-
   @Unroll
   def "should return #expected when the title is #title"(String title, boolean expected) {
     expect:
