@@ -59,7 +59,7 @@ jobs:
         run: |
           cd spring-boot-example
           docker-compose up -d
-          nophup ./mvnw spring-boot:run &
+          ./mvnw spring-boot:run &
           cd ..
           cd gatling-example
           ./mvnw -B gatling:test
