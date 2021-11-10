@@ -29,7 +29,7 @@ Requirements:
 - Java 11
 - Running Docker engine (required for Testcontainers)
 
-Build the project and run all tests with
+Build the project and run all tests with:
 
 ```shell
 cd spring-boot-example
@@ -41,14 +41,14 @@ cd jakarta-ee-example
 
 ## Content
 
-The book uses a Spring Boot and Jakarta EE application to demonstrate the different tools & libraries. Only some code examples use a minimal amount of Spring Boot or Jakarta EE specifics so that you can easily apply the learnings to your tech stack.
+The book uses a Spring Boot and Jakarta EE application to demonstrate the different tools & libraries. Both sample applications only use a minimal subset of Spring Boot/Jakarta EE features so that you can easily apply the knowledge to your tech stack.
 
 ### Test Frameworks
 
 - [x] JUnit 4
 - [x] JUnit 5
 - [x] TestNG
-- [ ] Spock
+- [ ] Spock (upcoming)
 
 ### Assertion Libraries
 
@@ -73,20 +73,20 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [ ] MicroShed Testing (upcoming)
 - [ ] Citrus
 - [x] GreenMail
-- [ ] Selenium (upcoming)
+- [ ] Selenium
 
 ### Utility Libraries
 
 - [x] Selenide
-- [ ] Pact (upcoming)
+- [ ] Pact
 - [ ] Spring Cloud Contract
 - [ ] Diffblue
 - [ ] FitNesse
-- [ ] Awaitility (upcoming)
+- [ ] Awaitility
 
 ### Performance Testing
 
 - [ ] JMH
-- [ ] JMeter
-- [ ] Gatling
+- [ ] JMeter (upcoming)
+- [ ] Gatling (upcoming)
 - [ ] Quick Perf
