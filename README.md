@@ -26,8 +26,8 @@ Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java
 
 Requirements:
 
-- Java 11
-- Running Docker engine (required for Testcontainers)
+- Java 11: `java -version`
+- A running Docker engine (required for Testcontainers): `docker info`
 
 Build the project and run all tests with:
 
