@@ -57,10 +57,6 @@ jobs:
 
       - name: Run the load tests
         run: |
-          cd spring-boot-example
-          docker-compose up -d
-          ls -al
-          ./mvnw -B spring-boot:run &
-          cd ..
-          cd gatling-example
-          ./mvnw -B gatling:test
+          docker-compose --file spring-boot-example/docker-compose.yml up -d
+          mvn --file spring-boot-example/pom.xml -B spring-boot:run &
+          mvn --file gatling-example/pom.xml -B gatling:test
