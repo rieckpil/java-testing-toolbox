@@ -1,5 +1,7 @@
 package de.rieckpil.blog.customer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
+
+  private static final Logger LOG = LoggerFactory.getLogger(CustomerController.class);
 
   @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   public List<Customer> returnAllCustomers() {
@@ -70,7 +74,7 @@ public class CustomerController {
     @RequestBody CustomerCreationRequest request,
     UriComponentsBuilder uriComponentsBuilder) {
 
-    System.out.println(request);
+    LOG.info("Creating new customer with username: '{}'", request.getUsername());
 
     return ResponseEntity
       .created(uriComponentsBuilder
