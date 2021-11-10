@@ -9,7 +9,7 @@ jobs:
       matrix:
         projects: [ 'spring-boot-example', 'jakarta-ee-example' ]
     runs-on: ubuntu-20.04
-    name: Build & Test Project ${{ matrix.projects }}
+    name: ${{ matrix.projects }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
 
   run-gatling-performance-tests:
     runs-on: ubuntu-20.04
-    name: Run the Gatling performance tests
+    name: gatling-example
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
