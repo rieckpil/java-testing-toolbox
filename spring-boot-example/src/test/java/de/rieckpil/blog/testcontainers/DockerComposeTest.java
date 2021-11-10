@@ -14,7 +14,7 @@ public class DockerComposeTest {
 
   @Container
   static DockerComposeContainer<?> environment =
-    new DockerComposeContainer<>(new File("docker-compose.yml"))
+    new DockerComposeContainer<>(new File("docker-compose-test.yml"))
       .withExposedService("database_1", 5432, Wait.forListeningPort())
       .withExposedService("keycloak_1", 8080,
         Wait.forHttp("/auth").forStatusCode(200)

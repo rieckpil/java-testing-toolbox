@@ -1,13 +1,20 @@
-version: '3'
+version: "3.8"
 services:
   database:
     image: postgres:12.3
+    ports:
+      - "5432:5432"
     environment:
-      - POSTGRES_USER=testcontainers
-      - POSTGRES_PASSWORD=secret
-  keycloak:
-    image: jboss/keycloak:11.0.0
+      - POSTGRES_USER=springboot
+      - POSTGRES_PASSWORD=springboot
+  localstack:
+    image: localstack/localstack:0.12.19
+    ports:
+      - "4566:4566"
+    volumes:
+      - type: bind
+        source: ./src/test/resources/localstack/init-thumbnail-processing.sh
+        target: /docker-entrypoint-initaws.d/init-thumbnail-processing.sh
+        read_only: true
     environment:
-      - KEYCLOAK_USER=testcontainers
-      - KEYCLOAK_PASSWORD=secret
-      - DB_VENDOR=h2
+      - SERVICES=s3,sqs
