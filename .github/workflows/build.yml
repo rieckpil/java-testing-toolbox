@@ -59,7 +59,8 @@ jobs:
         run: |
           cd spring-boot-example
           docker-compose up -d
-          ./mvnw spring-boot:run &
+          ls -al
+          ./mvnw -B spring-boot:run &
           cd ..
           cd gatling-example
           ./mvnw -B gatling:test
