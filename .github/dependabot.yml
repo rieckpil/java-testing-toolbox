@@ -1,7 +1,11 @@
 version: 2
 updates:
   - package-ecosystem: "maven"
-    directory: "/"
+    directory: "/spring-boot-example"
     schedule:
-      interval: "daily"
-      time: "02:00"
+      interval: "weekly"
+
+  - package-ecosystem: "maven"
+    directory: "/jakarta-ee-example"
+    schedule:
+      interval: "weekly"
