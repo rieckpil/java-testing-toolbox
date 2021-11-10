@@ -3,43 +3,53 @@ package de.rieckpil.blog.microshedtesting;
 import javax.ws.rs.core.Response;
 
 import de.rieckpil.blog.Person;
-import de.rieckpil.blog.PersonResource;
-import org.junit.jupiter.api.Disabled;
+import io.restassured.http.ContentType;
+import io.restassured.http.Headers;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.SharedContainerConfig;
-import org.microshed.testing.jaxrs.RESTClient;
 import org.microshed.testing.jupiter.MicroShedTest;
 
+import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Disabled
 @MicroShedTest
 @SharedContainerConfig(SampleApplicationConfig.class)
 class PersonResourceIT {
 
-  @RESTClient
-  public static PersonResource personsEndpoint;
-
   @Test
   void shouldCreatePerson() {
-    Person duke = new Person();
-    duke.setFirstName("duke");
-    duke.setLastName("jakarta");
 
-    Response result = personsEndpoint.createNewPerson(null, duke);
+    Headers responseHeaders = given()
+      .contentType(ContentType.JSON)
+      .when()
+      .body("{\"firstName\": \"duke\", \"lastName\":\"jakarta\"}")
+      .post("/resources/persons")
+      .then()
+      .statusCode(201)
+      .extract()
+      .headers();
 
-    assertEquals(Response.Status.CREATED.getStatusCode(), result.getStatus());
-    var createdUrl = result.getHeaderString("Location");
-    assertNotNull(createdUrl);
+    String locationHeader = responseHeaders.getValue("Location");
+    assertNotNull(locationHeader);
 
-    var id = Long.valueOf(createdUrl.substring(createdUrl.lastIndexOf('/') + 1));
-    assertTrue(id > 0, "Generated ID should be greater than 0 but was: " + id);
+    long personId = Long.parseLong(locationHeader.substring(locationHeader.lastIndexOf('/') + 1));
+    assertTrue(personId > 0, "Generated ID should be greater than 0 but was: " + personId);
 
-    var newPerson = personsEndpoint.getPersonById(id);
-    assertNotNull(newPerson);
-    assertEquals("duke", newPerson.getFirstName());
-    assertEquals("jakarta", newPerson.getLastName());
+    System.out.println(locationHeader);
+
+    Person createdPerson = given()
+      .accept(ContentType.JSON)
+      .when()
+      .get("/resources/persons/" + personId)
+      .then()
+      .statusCode(200)
+      .extract()
+      .as(Person.class);
+
+    assertEquals("duke", createdPerson.getFirstName());
+    assertEquals("jakarta", createdPerson.getLastName());
   }
 }

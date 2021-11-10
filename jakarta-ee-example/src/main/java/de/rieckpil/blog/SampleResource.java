@@ -33,7 +33,6 @@ public class SampleResource {
     @Path("/quotes")
     public String getQuotes() {
         var quoteOfTheDayPointer = Json.createPointer("/contents/quotes/0/quote");
-        var quoteOfTheDay = quoteOfTheDayPointer.getValue(quoteRestClient.getQuoteOfTheDay()).toString();
-        return quoteOfTheDay;
+      return quoteOfTheDayPointer.getValue(quoteRestClient.getQuoteOfTheDay()).toString();
     }
 }

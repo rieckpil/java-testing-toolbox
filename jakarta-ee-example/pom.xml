@@ -19,9 +19,10 @@
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
     <mockito-core.version>3.12.1</mockito-core.version>
     <microshed-testing.version>0.9.1</microshed-testing.version>
-    <testcontainers.version>1.15.0</testcontainers.version>
+    <testcontainers.version>1.16.2</testcontainers.version>
     <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
     <mockserver-client-java.version>5.11.2</mockserver-client-java.version>
+    <rest-assured.version>4.3.0</rest-assured.version>
   </properties>
 
   <dependencyManagement>
@@ -50,6 +51,11 @@
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.29</version>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -63,6 +69,13 @@
       <version>${mockito-core.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.microshed</groupId>
       <artifactId>microshed-testing-liberty</artifactId>

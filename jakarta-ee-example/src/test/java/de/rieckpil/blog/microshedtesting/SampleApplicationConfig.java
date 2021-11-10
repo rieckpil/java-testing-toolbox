@@ -8,10 +8,10 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
-class SampleApplicationConfig implements SharedContainerConfiguration {
+public class SampleApplicationConfig implements SharedContainerConfiguration {
 
   @Container
-  public static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>()
+  public static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(DockerImageName.parse("postgres:12"))
     .withNetworkAliases("mypostgres")
     .withExposedPorts(5432)
     .withUsername("duke")
@@ -19,7 +19,7 @@ class SampleApplicationConfig implements SharedContainerConfiguration {
     .withDatabaseName("users");
 
   @Container
-  public static MockServerContainer mockServer = new MockServerContainer(DockerImageName.parse("jamesdbloom/mockserver:mockserver-5.5.4"))
+  public static MockServerContainer mockServer = new MockServerContainer(DockerImageName.parse("mockserver/mockserver:mockserver-5.11.2"))
     .withNetworkAliases("mockserver");
 
   @Container
