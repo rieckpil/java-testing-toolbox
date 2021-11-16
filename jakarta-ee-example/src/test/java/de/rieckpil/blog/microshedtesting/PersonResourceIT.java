@@ -1,11 +1,8 @@
 package de.rieckpil.blog.microshedtesting;
 
-import javax.ws.rs.core.Response;
-
 import de.rieckpil.blog.Person;
 import io.restassured.http.ContentType;
 import io.restassured.http.Headers;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.SharedContainerConfig;
 import org.microshed.testing.jupiter.MicroShedTest;
