@@ -14,7 +14,7 @@
     <jdbcDriver libraryRef="postgresql-library"/>
     <properties.postgresql serverName="${POSTGRES_HOSTNAME}"
                            portNumber="${POSTGRES_PORT}"
-                           databaseName="users"
+                           databaseName="${POSTGRES_DATABASE}"
                            user="${POSTGRES_USERNAME}"
                            password="${POSTGRES_PASSWORD}"/>
   </dataSource>
