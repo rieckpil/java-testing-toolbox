@@ -1,7 +1,5 @@
 # Spring Boot Sample Application
 
-You can find the source code for the various testing tools & libraries within `src/test/java/de/rieckpil/blog`. Each tool & library has its dedicated Java package.
-
 ## Prerequisites
 
 - Java 11: `java -version`
