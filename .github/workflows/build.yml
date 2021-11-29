@@ -59,4 +59,4 @@ jobs:
         run: |
           docker-compose --file spring-boot-example/docker-compose.yml up -d
           mvn --file spring-boot-example/pom.xml -B spring-boot:run &
-          mvn --file gatling-example/pom.xml -B gatling:test
+          mvn --file spring-boot-example/pom.xml -B gatling:test

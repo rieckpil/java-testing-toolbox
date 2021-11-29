@@ -39,6 +39,8 @@
     <greenmail.version>1.6.0</greenmail.version>
     <groovy.version>3.0.7</groovy.version>
     <citrus.version>2.8.0</citrus.version>
+    <gatling.version>3.7.2</gatling.version>
+    <gatling-maven-plugin.version>4.0.1</gatling-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -302,6 +304,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Performance Testing -->
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>${gatling.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -378,6 +388,11 @@
         <groupId>com.consol.citrus.mvn</groupId>
         <artifactId>citrus-maven-plugin</artifactId>
         <version>${citrus.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>${gatling-maven-plugin.version}</version>
       </plugin>
     </plugins>
   </build>
