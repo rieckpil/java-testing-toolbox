@@ -22,6 +22,7 @@ public class CustomerRequestSimulation extends Simulation {
   ScenarioBuilder scn = scenario("Load Test HTTP POST API")
     .exec(http("spring-boot-backend-request")
       .post("/api/customers")
+      .header("Content-Type", "application/json")
       .body(StringBody(session -> "{ \"username\": \"" + randomUsername() + "\" }"))
     );
 
