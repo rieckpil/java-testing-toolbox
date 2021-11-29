@@ -38,7 +38,7 @@
     <rest-assured.version>4.3.3</rest-assured.version>
     <greenmail.version>1.6.0</greenmail.version>
     <groovy.version>3.0.7</groovy.version>
-    <citrus.version>2.8.0</citrus.version>
+    <citrus.version>3.1.0</citrus.version>
     <gatling.version>3.7.2</gatling.version>
     <gatling-maven-plugin.version>4.0.1</gatling-maven-plugin.version>
   </properties>
