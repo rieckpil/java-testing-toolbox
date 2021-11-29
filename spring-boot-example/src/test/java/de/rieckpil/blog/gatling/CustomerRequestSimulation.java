@@ -7,6 +7,7 @@ import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
+import static io.gatling.javaapi.core.CoreDsl.StringBody;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
 import static io.gatling.javaapi.core.CoreDsl.scenario;
 import static io.gatling.javaapi.http.HttpDsl.http;
@@ -21,6 +22,7 @@ public class CustomerRequestSimulation extends Simulation {
   ScenarioBuilder scn = scenario("Load Test HTTP POST API")
     .exec(http("spring-boot-backend-request")
       .post("/api/customers")
+      .body(StringBody(session -> "{ \"username\": \"" + randomUsername() + "\" }"))
     );
 
   {
