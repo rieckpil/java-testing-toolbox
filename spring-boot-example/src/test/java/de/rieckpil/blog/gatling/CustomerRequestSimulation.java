@@ -26,7 +26,7 @@ public class CustomerRequestSimulation extends Simulation {
       .body(StringBody(session -> "{ \"username\": \"" + randomUsername() + "\" }"))
     );
 
-  {
+  public CustomerRequestSimulation() {
     setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15)).randomized()))
       .protocols(httpProtocol);
   }
