@@ -14,7 +14,6 @@ import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
-import static io.gatling.javaapi.core.CoreDsl.feed;
 import static io.gatling.javaapi.core.CoreDsl.scenario;
 import static io.gatling.javaapi.http.HttpDsl.http;
 
@@ -35,7 +34,7 @@ public class CustomerRequestSimulation extends Simulation {
     .exec(http("spring-boot-backend-request")
       .post("/api/customers")
       .header("Content-Type", "application/json")
-      .body(StringBody("{ \"username\": ${username} }"))
+      .body(StringBody("{ \"username\": \"${username}\" }"))
     );
 
   public CustomerRequestSimulation() {
