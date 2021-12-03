@@ -19,15 +19,15 @@ import static io.gatling.javaapi.http.HttpDsl.http;
 
 public class CustomerRequestSimulation extends Simulation {
 
-  Iterator<Map<String, Object>> feeder =
-    Stream.generate((Supplier<Map<String, Object>>) ()
-      -> Collections.singletonMap("username", UUID.randomUUID().toString())
-    ).iterator();
-
   HttpProtocolBuilder httpProtocol = http
     .baseUrl("http://localhost:8080")
     .acceptHeader("application/json")
     .userAgentHeader("Gatling/Performance Test");
+
+  Iterator<Map<String, Object>> feeder =
+    Stream.generate((Supplier<Map<String, Object>>) ()
+      -> Collections.singletonMap("username", UUID.randomUUID().toString())
+    ).iterator();
 
   ScenarioBuilder scn = scenario("Load Test HTTP POST API")
     .feed(feeder)
