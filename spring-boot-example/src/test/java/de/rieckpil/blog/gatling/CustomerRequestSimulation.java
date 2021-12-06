@@ -8,8 +8,10 @@ import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import io.gatling.javaapi.core.CoreDsl;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
+import io.gatling.javaapi.http.HttpDsl;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
@@ -19,7 +21,7 @@ import static io.gatling.javaapi.http.HttpDsl.http;
 
 public class CustomerRequestSimulation extends Simulation {
 
-  HttpProtocolBuilder httpProtocol = http
+  HttpProtocolBuilder httpProtocol = HttpDsl.http
     .baseUrl("http://localhost:8080")
     .acceptHeader("application/json")
     .userAgentHeader("Gatling/Performance Test");
@@ -29,16 +31,18 @@ public class CustomerRequestSimulation extends Simulation {
       -> Collections.singletonMap("username", UUID.randomUUID().toString())
     ).iterator();
 
-  ScenarioBuilder scn = scenario("Load Test Creating Customers")
+  ScenarioBuilder scn = CoreDsl.scenario("Load Test Creating Customers")
     .feed(feeder)
-    .exec(http("spring-boot-backend-request")
+    .exec(http("create-customer-request")
       .post("/api/customers")
       .header("Content-Type", "application/json")
       .body(StringBody("{ \"username\": \"${username}\" }"))
     );
 
+  // TODO: Add HTTP GET verification
+
   public CustomerRequestSimulation() {
-    setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15)).randomized()))
+    this.setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15)).randomized()))
       .protocols(httpProtocol);
   }
 }
