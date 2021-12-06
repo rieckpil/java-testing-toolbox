@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -22,6 +23,14 @@ public class CustomerController {
   @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   public List<Customer> returnAllCustomers() {
     return createSampleCustomers();
+  }
+
+  @GetMapping("/{id}")
+  public Customer getCustomerById(@PathVariable("id") Long id) {
+    LOG.info("Getting customer with ID '{}'", id);
+
+    List<Customer> allCustomers = createSampleCustomers();
+    return allCustomers.get(ThreadLocalRandom.current().nextInt(0, allCustomers.size()));
   }
 
   private List<Customer> createSampleCustomers() {

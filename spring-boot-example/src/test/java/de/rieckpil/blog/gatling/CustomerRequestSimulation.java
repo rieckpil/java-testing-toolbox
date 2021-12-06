@@ -16,8 +16,9 @@ import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
-import static io.gatling.javaapi.core.CoreDsl.scenario;
+import static io.gatling.javaapi.http.HttpDsl.header;
 import static io.gatling.javaapi.http.HttpDsl.http;
+import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class CustomerRequestSimulation extends Simulation {
 
@@ -37,9 +38,13 @@ public class CustomerRequestSimulation extends Simulation {
       .post("/api/customers")
       .header("Content-Type", "application/json")
       .body(StringBody("{ \"username\": \"${username}\" }"))
+      .check(status().is(201))
+      .check(header("Location").saveAs("location"))
+    )
+    .exec(http("get-customer-request")
+      .get(session -> session.getString("location"))
+      .check(status().is(200))
     );
-
-  // TODO: Add HTTP GET verification
 
   public CustomerRequestSimulation() {
     this.setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15)).randomized()))
