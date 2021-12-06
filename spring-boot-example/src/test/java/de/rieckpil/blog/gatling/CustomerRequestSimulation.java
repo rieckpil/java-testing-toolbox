@@ -29,7 +29,7 @@ public class CustomerRequestSimulation extends Simulation {
       -> Collections.singletonMap("username", UUID.randomUUID().toString())
     ).iterator();
 
-  ScenarioBuilder scn = scenario("Load Test HTTP POST API")
+  ScenarioBuilder scn = scenario("Load Test Creating Customers")
     .feed(feeder)
     .exec(http("spring-boot-backend-request")
       .post("/api/customers")
