@@ -47,7 +47,7 @@ public class CustomerRequestSimulation extends Simulation {
     );
 
   public CustomerRequestSimulation() {
-    this.setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15)).randomized()))
+    this.setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15))))
       .protocols(httpProtocol);
   }
 }
