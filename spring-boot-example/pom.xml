@@ -333,25 +333,15 @@
       <plugin>
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.4</version>
+        <version>1.13.1</version>
         <executions>
           <execution>
             <!-- Without joint compilation - no dependencies between Java and Groovy (inheritance)-->
             <goals>
-              <goal>testCompile</goal>
+              <goal>compileTests</goal>
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <testSources>
-            <testSource>
-              <directory>${project.basedir}/src/test/java</directory>
-              <includes>
-                <include>**/*.groovy</include>
-              </includes>
-            </testSource>
-          </testSources>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
