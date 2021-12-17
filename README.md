@@ -10,7 +10,9 @@
 
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
-You can find the source code for the various testing tools & libraries within `spring-boot-example/src/test/java/de/rieckpil/blog`. Each tool & library has its dedicated Java package. The only exception is MicroShed Testing, which is part of the `jakarta-ee-example` project.
+You can find the source code for the various testing tools & libraries within `spring-boot-example/src/test/java/de/rieckpil/blog`. Each tool & library has its dedicated Java package.
+
+The only exception to this rule is MicroShed Testing, which is part of the `jakarta-ee-example` project.
 
 **Current Status**: 15/30 tools and libraries are covered. The next release (20/30) is scheduled for Q4 2021.
 
@@ -21,7 +23,7 @@ Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java
 - Enrich your existing testing toolbox
 - Use the right tool for the job
 - Inform about various tools & libraries of the Java testing ecosystem
-- Cookbook-style introduction of each tool & library
+- Cookbook-style introduction for each testing tool & library
 - Hands-on testing examples that apply for testing any Java application
 
 ## Build & Test
