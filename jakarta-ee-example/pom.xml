@@ -123,6 +123,10 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <reportsDirectory>${project.build.directory}/test-reports</reportsDirectory>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>io.openliberty.tools</groupId>

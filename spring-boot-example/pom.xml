@@ -368,6 +368,8 @@
             <include>**/*Spec.java</include>
             <include>**/*Test.java</include>
           </includes>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <reportsDirectory>${project.build.directory}/test-reports</reportsDirectory>
         </configuration>
       </plugin>
       <plugin>
@@ -386,6 +388,8 @@
             <include>**/*IT.java</include> <!-- Integration Tests -->
             <include>**/*WT.java</include> <!-- Web Tests -->
           </includes>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <reportsDirectory>${project.build.directory}/test-reports</reportsDirectory>
         </configuration>
       </plugin>
       <plugin>

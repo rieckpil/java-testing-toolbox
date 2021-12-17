@@ -33,6 +33,10 @@ jobs:
         working-directory: ${{ matrix.projects }}
         run: ./mvnw -B verify
 
+      - name: Log test output on failure
+        if: failure() || cancelled()
+        run: find . -type f -path "*test-reports/*-output.txt" -exec tail -n +1 {} +
+
   run-gatling-performance-tests:
     runs-on: ubuntu-20.04
     name: gatling-example
