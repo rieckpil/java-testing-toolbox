@@ -4,10 +4,13 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -15,16 +18,23 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @Disabled("Showcase only")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-class FirefoxDashboardControllerWebTest {
+class DashboardControllerWT {
 
   @LocalServerPort
   private Integer port;
 
+  @RegisterExtension
+  static ScreenShooterExtension screenShooterExtension = new ScreenShooterExtension()
+    .to("target/selenide");
+
   @BeforeAll
   static void configure() {
-    Configuration.browser = "firefox";
-    Configuration.browserSize = "1337x1337";
-    Configuration.timeout = 2000;
+    ChromeOptions chromeOptions = new ChromeOptions();
+    chromeOptions.addArguments("--no-sandbox", "--disable-dev-shm-usage", "--headless", "--disable-gpu");
+
+    Configuration.browserCapabilities = chromeOptions;
+
+    Configuration.reportsFolder = "target/selenide";
   }
 
   @Test
@@ -56,7 +66,7 @@ class FirefoxDashboardControllerWebTest {
 
     Selenide.screenshot("post-customer-fetch");
 
-    // the customer table should now be part of the DOM
+    // the customer table should not be part of the DOM
     Selenide.$(By.id("all-customers")).should(Condition.exist);
 
     Selenide.$$(By.className("customer-information")).shouldHave(CollectionCondition.size(3));

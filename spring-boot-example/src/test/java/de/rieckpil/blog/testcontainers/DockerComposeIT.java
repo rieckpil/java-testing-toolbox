@@ -10,7 +10,7 @@ import java.io.File;
 import java.time.Duration;
 
 @Testcontainers
-public class DockerComposeTest {
+class DockerComposeIT {
 
   @Container
   static DockerComposeContainer<?> environment =

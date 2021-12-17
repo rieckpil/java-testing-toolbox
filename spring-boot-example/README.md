@@ -5,9 +5,9 @@
 - Java 11: `java -version`
 - a running Docker engine: `docker info`
 
-## Run the tests
+## Run all tests
 
-1. Execute all tests with `mvn verify`
+1. Execute all tests with `./mvnw verify` (Mac/Linux) or `mvnw.cmd verify` (Windows)
 
 ## Start the application
 

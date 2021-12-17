@@ -381,6 +381,12 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <includes>
+            <include>**/*IT.java</include> <!-- Integration Tests -->
+            <include>**/*WT.java</include> <!-- Web Tests -->
+          </includes>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>com.consol.citrus.mvn</groupId>

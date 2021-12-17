@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Testcontainers
-public class BasicContainerTest {
+class BasicContainerIT {
 
   @Container
   static GenericContainer<?> keycloak =

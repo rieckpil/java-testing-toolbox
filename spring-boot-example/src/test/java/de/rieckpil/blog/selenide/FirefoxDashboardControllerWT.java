@@ -1,49 +1,35 @@
 package de.rieckpil.blog.selenide;
 
-import com.codeborne.selenide.*;
-import com.codeborne.selenide.junit5.ScreenShooterExtension;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.apache.commons.lang.SystemUtils;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@Testcontainers(disabledWithoutDocker = true)
+@Disabled("Showcase only")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-class TestcontainersDashboardControllerWebTest {
+class FirefoxDashboardControllerWT {
 
   @LocalServerPort
   private Integer port;
 
-  @Container
-  public static BrowserWebDriverContainer<?> webDriverContainer =
-    new BrowserWebDriverContainer<>()
-      .withCapabilities(new ChromeOptions()
-        .addArguments("--headless")
-        .addArguments("--no-sandbox")
-        .addArguments("--disable-dev-shm-usage"));
-
   @BeforeAll
   static void configure() {
+    Configuration.browser = "firefox";
+    Configuration.browserSize = "1337x1337";
     Configuration.timeout = 2000;
-
-    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
-    WebDriverRunner.setWebDriver(remoteWebDriver);
   }
 
   @Test
   void accessDashboardPage() {
-
-    Selenide.open("http://" + getHost() + ":" + port + "/dashboard");
+    Selenide.open("http://localhost:" + port + "/dashboard");
 
     Selenide.$(By.tagName("button")).click();
 
@@ -58,7 +44,7 @@ class TestcontainersDashboardControllerWebTest {
 
   @Test
   void accessDashboardPageAndLoadCustomers() {
-    Selenide.open("http://" + getHost() + ":" + port + "/dashboard");
+    Selenide.open("http://localhost:" + port + "/dashboard");
 
     // customer table should not be part of the DOM
     Selenide.$(By.id("all-customers")).shouldNot(Condition.exist);
@@ -70,13 +56,9 @@ class TestcontainersDashboardControllerWebTest {
 
     Selenide.screenshot("post-customer-fetch");
 
-    // the customer table should not be part of the DOM
+    // the customer table should now be part of the DOM
     Selenide.$(By.id("all-customers")).should(Condition.exist);
 
     Selenide.$$(By.className("customer-information")).shouldHave(CollectionCondition.size(3));
-  }
-
-  private String getHost() {
-    return SystemUtils.IS_OS_LINUX ? "172.17.0.1" : "host.docker.internal";
   }
 }
