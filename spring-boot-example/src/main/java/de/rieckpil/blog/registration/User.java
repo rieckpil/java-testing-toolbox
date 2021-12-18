@@ -11,6 +11,10 @@ public class User {
   public User() {
   }
 
+  public User(String username) {
+    this.username = username;
+  }
+
   public User(String username, LocalDateTime createdAt) {
     this.username = username;
     this.createdAt = createdAt;
