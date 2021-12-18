@@ -7,8 +7,8 @@ import spock.lang.Unroll
 class ReviewValidationSpec extends Specification {
   private ReviewValidation cut = new ReviewValidation()
 
-  @Unroll
-  def "should return #expected when the title is #title"(String title, boolean expected) {
+  @Unroll("the title #title should meet the quality standards: #expected")
+  def "should identify the quality of review titles"(String title, boolean expected) {
     expect:
     cut.titleMeetsQualityStandards(title) == expected
 
@@ -16,7 +16,7 @@ class ReviewValidationSpec extends Specification {
     title                    | expected
     "ABCD"                   | false
     "Bad book"               | false
-    ":("                     | false
+    "lorem ipsum"            | false
     "Java Testing Ecosystem" | true
   }
 }

@@ -8,10 +8,6 @@ public class ReviewValidation {
       return false;
     }
 
-    if (reviewTitle.toLowerCase().contains("lorem ipsum")) {
-      return false;
-    }
-
-    return true;
+    return !reviewTitle.toLowerCase().contains("lorem ipsum");
   }
 }
