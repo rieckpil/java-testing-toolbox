@@ -13,7 +13,6 @@
   <groupId>de.rieckpil.blog</groupId>
   <artifactId>spring-boot-example</artifactId>
   <version>1.0.0</version>
-  <name>java-testing-ecosystem</name>
 
   <properties>
     <java.version>11</java.version>
