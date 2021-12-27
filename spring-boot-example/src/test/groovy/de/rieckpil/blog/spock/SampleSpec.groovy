@@ -5,12 +5,12 @@ import spock.lang.Specification
 
 class SampleSpec extends Specification {
 
-  def "should uppercase String"() {
+  def "should uppercase a String"() {
     given:
-    String s = new String("duke")
+    def string = "duke"
 
     when:
-    def result = s.toUpperCase()
+    def result = string.toUpperCase()
 
     then:
     result == "DUKE"
