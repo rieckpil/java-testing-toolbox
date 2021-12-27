@@ -28,15 +28,31 @@ class SampleSpec extends Specification {
   }
 
   @Ignore("Showcase only")
-  def "should fail with readable assertion error in the log"() {
-    given:
-    int firstValue = 1
-    int secondValue = 42
+def "should fail with readable assertion error in the log"() {
+  given:
+  int firstValue = 1
+  int secondValue = 42
 
-    when:
-    int expectedResult = 100
+  when:
+  int expectedResult = 100
 
-    then:
-    Math.max(firstValue, secondValue) == expectedResult
+  then:
+  Math.max(firstValue, secondValue) == expectedResult
+}
+
+  def setupSpec() {
+    print "Will run only once before all tests of this class"
+  }
+
+  def setup() {
+    print "Will run before each test"
+  }
+
+  def cleanup() {
+    print "Will run after each test"
+  }
+
+  def cleanupSpec() {
+    print "Will run only once after all tests of this class"
   }
 }
