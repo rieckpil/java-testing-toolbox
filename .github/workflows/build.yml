@@ -69,7 +69,8 @@ jobs:
 
       - name: Run ApacheBench performance tests
         run: |
-          apt-get update
-          apt-get install apache2-utils
+          ab help
+          sudo apt-get update
+          sudo apt-get install apache2-utils
           mvn --file spring-boot-example/pom.xml -B spring-boot:run &
           ab -p spring-boot-example/src/test/resources/apachebench/create-customer-request.json -T application/json -c 10 -n 1000 http://localhost:8080/api/customers
