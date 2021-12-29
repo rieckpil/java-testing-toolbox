@@ -91,6 +91,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 ### Performance Testing
 
 - [ ] JMH
-- [ ] JMeter (upcoming)
+- [ ] JMeter
 - [ ] Gatling (upcoming)
 - [ ] Quick Perf
+- [ ] ApacheBench (upcoming)
