@@ -59,7 +59,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-gatling-
 
-      - name: Start the application
+      - name: Start the infrastructure
         run: docker-compose --file spring-boot-example/docker-compose.yml up -d
 
       - name: Run Gatling performance tests
