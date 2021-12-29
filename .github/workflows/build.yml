@@ -37,9 +37,9 @@ jobs:
         if: failure() || cancelled()
         run: find . -type f -path "*test-reports/*-output.txt" -exec tail -n +1 {} +
 
-  run-gatling-performance-tests:
+  run-performance-tests:
     runs-on: ubuntu-20.04
-    name: gatling-example
+    name: performance-tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -59,8 +59,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-gatling-
 
-      - name: Run the load tests
+      - name: Start the application
+        run: docker-compose --file spring-boot-example/docker-compose.yml up -d
+
+      - name: Run Gatling performance tests
         run: |
-          docker-compose --file spring-boot-example/docker-compose.yml up -d
           mvn --file spring-boot-example/pom.xml -B spring-boot:run &
           mvn --file spring-boot-example/pom.xml -B gatling:test
+
+      - name: Run ApacheBench performance tests
+        run: |
+          apt-get update
+          apt-get install apache2-utils
+          mvn --file spring-boot-example/pom.xml -B spring-boot:run &
+          ab -p spring-boot-example/src/test/resources/apachebench/create-customer-request.json -T application/json -c 10 -n 1000 http://localhost:8080/api/customers
