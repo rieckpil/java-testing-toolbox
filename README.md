@@ -53,7 +53,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] JUnit 5
 - [x] TestNG
 - [x] Spock
-- ...
+- [ ] ...
 
 ### Assertion Libraries
 
@@ -63,7 +63,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] XMLUnit
 - [x] JSONAssert
 - [x] REST Assured
-- ...
+- [ ] ...
 
 ### Mocking Frameworks
 
@@ -71,7 +71,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] WireMock
 - [x] MockWebServer
 - [ ] PowerMock
-- ...
+- [ ] ...
 
 ### Test Infrastructure
 
@@ -81,7 +81,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [ ] Citrus
 - [x] GreenMail
 - [ ] Selenium
-- ...
+- [ ] ...
 
 ### Utility Libraries
 
@@ -91,7 +91,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [ ] Diffblue
 - [ ] FitNesse
 - [ ] Awaitility (upcoming)
-- ...
+- [ ] ...
 
 ### Performance Testing
 
@@ -100,4 +100,4 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] Gatling
 - [ ] Quick Perf
 - [x] ApacheBench
-- ...
+- [ ] ...
