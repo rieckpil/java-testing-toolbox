@@ -52,7 +52,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] JUnit 4
 - [x] JUnit 5
 - [x] TestNG
-- [ ] Spock (upcoming)
+- [x] Spock
 
 ### Assertion Libraries
 
@@ -74,7 +74,7 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 
 - [x] Testcontainers
 - [x] LocalStack
-- [ ] MicroShed Testing (upcoming)
+- [x] MicroShed Testing
 - [ ] Citrus
 - [x] GreenMail
 - [ ] Selenium
@@ -82,16 +82,16 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 ### Utility Libraries
 
 - [x] Selenide
-- [ ] Pact
-- [ ] Spring Cloud Contract
+- [ ] Pact (upcoming)
+- [ ] Spring Cloud Contract (upcoming)
 - [ ] Diffblue
 - [ ] FitNesse
-- [ ] Awaitility
+- [ ] Awaitility (upcoming)
 
 ### Performance Testing
 
-- [ ] JMH
-- [ ] JMeter
-- [ ] Gatling (upcoming)
+- [ ] JMH (upcoming)
+- [ ] JMeter (upcoming)
+- [x] Gatling
 - [ ] Quick Perf
-- [ ] ApacheBench (upcoming)
+- [x] ApacheBench
