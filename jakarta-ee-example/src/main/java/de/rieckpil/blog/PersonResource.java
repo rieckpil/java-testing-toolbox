@@ -18,8 +18,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
-
 @Path("/persons")
 @ApplicationScoped
 @Transactional(TxType.REQUIRED)
@@ -27,34 +25,34 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
-    @GET
-    public List<Person> getAllPersons() {
-        return entityManager.createQuery("SELECT p FROM Person p", Person.class).getResultList();
+  @GET
+  public List<Person> getAllPersons() {
+    return entityManager.createQuery("SELECT p FROM Person p", Person.class).getResultList();
+  }
+
+  @GET
+  @Path("/{id}")
+  public Person getPersonById(@PathParam("id") Long id) {
+    var personById = entityManager.find(Person.class, id);
+
+    if (personById == null) {
+      throw new NotFoundException();
     }
 
-    @GET
-    @Path("/{id}")
-    public Person getPersonById(@PathParam("id") Long id) {
-        var personById = entityManager.find(Person.class, id);
+    return personById;
+  }
 
-        if (personById == null) {
-            throw new NotFoundException();
-        }
+  @POST
+  public Response createNewPerson(@Context UriInfo uriInfo, Person personToStore) {
+    entityManager.persist(personToStore);
 
-        return personById;
-    }
+    var headerLocation = uriInfo.getAbsolutePathBuilder()
+      .path(personToStore.getId().toString())
+      .build();
 
-    @POST
-    public Response createNewPerson(@Context UriInfo uriInfo, Person personToStore) {
-        entityManager.persist(personToStore);
-
-        var headerLocation = uriInfo.getAbsolutePathBuilder()
-                .path(personToStore.getId().toString())
-                .build();
-
-        return Response.created(headerLocation).build();
-    }
+    return Response.created(headerLocation).build();
+  }
 }

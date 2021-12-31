@@ -2,8 +2,6 @@ package de.rieckpil.blog.microshedtesting;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

@@ -11,8 +11,8 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @RegisterRestClient(baseUri = "https://quotes.rest")
 public interface QuoteRestClient {
 
-    @GET
-    @Path("/qod")
-    @Consumes(MediaType.APPLICATION_JSON)
-    JsonObject getQuoteOfTheDay();
+  @GET
+  @Path("/qod")
+  @Consumes(MediaType.APPLICATION_JSON)
+  JsonObject getQuoteOfTheDay();
 }
