@@ -1,4 +1,4 @@
-package de.rieckpil.blog.jgiven.service;
+package de.rieckpil.blog.zendesk;
 
 import org.springframework.stereotype.Service;
 

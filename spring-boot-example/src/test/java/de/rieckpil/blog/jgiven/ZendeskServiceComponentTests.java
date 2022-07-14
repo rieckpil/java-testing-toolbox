@@ -1,18 +1,17 @@
 package de.rieckpil.blog.jgiven;
 
-import de.rieckpil.blog.jgiven.given.GivenUser;
-import de.rieckpil.blog.jgiven.given.GivenZendeskClientMock;
-import de.rieckpil.blog.jgiven.then.ThenUserController;
-import de.rieckpil.blog.jgiven.then.ThenZendeskClientMock;
-import de.rieckpil.blog.jgiven.when.WhenUserController;
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.integration.spring.junit5.SpringScenarioTest;
+import de.rieckpil.blog.jgiven.given.GivenUser;
+import de.rieckpil.blog.jgiven.given.GivenZendeskClientMock;
+import de.rieckpil.blog.jgiven.then.ThenZendeskController;
+import de.rieckpil.blog.jgiven.then.ThenZendeskClientMock;
+import de.rieckpil.blog.jgiven.when.WhenZendeskController;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes={DemoAppTestConfig.class},
-				webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class JGivenDemoApplicationTests extends SpringScenarioTest<GivenUser, WhenUserController, ThenUserController> {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class ZendeskServiceComponentTests extends SpringScenarioTest<GivenUser, WhenZendeskController, ThenZendeskController> {
 
 	@ScenarioStage
 	GivenZendeskClientMock givenZendeskClientMock;

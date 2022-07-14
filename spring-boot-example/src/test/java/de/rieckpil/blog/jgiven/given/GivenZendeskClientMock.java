@@ -1,22 +1,22 @@
 package de.rieckpil.blog.jgiven.given;
 
-import de.rieckpil.blog.jgiven.service.UserService;
-import de.rieckpil.blog.jgiven.service.ZendeskApiClient;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
+import de.rieckpil.blog.zendesk.ZendeskApiClient;
+import de.rieckpil.blog.zendesk.ZendeskService;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 
 @JGivenStage
 public class GivenZendeskClientMock extends Stage<GivenZendeskClientMock> {
 
     @Autowired
-    UserService userService;
+    ZendeskService zendeskService;
 
     @ProvidedScenarioState
     ZendeskApiClient zendeskApiClientMock;
@@ -27,7 +27,7 @@ public class GivenZendeskClientMock extends Stage<GivenZendeskClientMock> {
     public GivenZendeskClientMock a_mock_for_zendesk_client() {
         zendeskApiClientMock = mock(ZendeskApiClient.class);
 
-        ReflectionTestUtils.setField(userService,
+        ReflectionTestUtils.setField(zendeskService,
                                      "zendeskApiClient",
                                      zendeskApiClientMock);
         return this;

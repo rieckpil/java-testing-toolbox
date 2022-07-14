@@ -1,10 +1,10 @@
 package de.rieckpil.blog.jgiven.then;
 
 import com.tngtech.jgiven.Stage;
-import de.rieckpil.blog.jgiven.service.ZendeskApiClient;
-import de.rieckpil.blog.jgiven.pojo.User;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.integration.spring.JGivenStage;
+import de.rieckpil.blog.zendesk.ZendeskApiClient;
+import de.rieckpil.blog.registration.User;
 import org.mockito.Mockito;
 
 @JGivenStage
@@ -17,7 +17,7 @@ public class ThenZendeskClientMock extends Stage<ThenZendeskClientMock> {
     User user;
 
     public ThenZendeskClientMock a_call_is_made_to_zendesk_to_create_the_ticket() {
-        Mockito.verify(zendeskApiClientMock).createZendeskTicketForUser(user.getUserId());
+        Mockito.verify(zendeskApiClientMock).createZendeskTicketForUser(user.getId());
         return this;
     }
 }
