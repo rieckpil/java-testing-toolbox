@@ -21,7 +21,7 @@
     <microshed-testing.version>0.9.1</microshed-testing.version>
     <testcontainers.version>1.16.2</testcontainers.version>
     <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
-    <mockserver-client-java.version>5.11.2</mockserver-client-java.version>
+    <mockserver-client-java.version>5.15.0</mockserver-client-java.version>
     <rest-assured.version>4.3.0</rest-assured.version>
   </properties>
 
