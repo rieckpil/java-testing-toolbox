@@ -21,20 +21,23 @@ class TestcontainersDashboardControllerWT {
 
   @LocalServerPort private Integer port;
 
+  private static final ChromeOptions CHROME_OPTIONS =
+      new ChromeOptions()
+          .addArguments("--headless")
+          .addArguments("--no-sandbox")
+          .addArguments("--disable-dev-shm-usage")
+          .addArguments("--remote-allow-origins=*");
+
   @Container
-  public static BrowserWebDriverContainer<?> webDriverContainer =
-      new BrowserWebDriverContainer<>()
-          .withCapabilities(
-              new ChromeOptions()
-                  .addArguments("--headless")
-                  .addArguments("--no-sandbox")
-                  .addArguments("--disable-dev-shm-usage"));
+  static BrowserWebDriverContainer<?> webDriverContainer =
+      new BrowserWebDriverContainer<>().withCapabilities(CHROME_OPTIONS);
 
   @BeforeAll
   static void configure() {
     Configuration.timeout = 2000;
 
-    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
+    RemoteWebDriver remoteWebDriver =
+        new RemoteWebDriver(webDriverContainer.getSeleniumAddress(), CHROME_OPTIONS, false);
     WebDriverRunner.setWebDriver(remoteWebDriver);
   }
 

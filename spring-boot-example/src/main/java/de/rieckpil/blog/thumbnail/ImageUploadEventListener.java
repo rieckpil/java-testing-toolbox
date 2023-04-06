@@ -6,13 +6,12 @@ import java.io.IOException;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-@Component
+// @Component
 public class ImageUploadEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(ImageUploadEventListener.class);

@@ -8,7 +8,7 @@ services:
       - POSTGRES_USER=springboot
       - POSTGRES_PASSWORD=springboot
   localstack:
-    image: localstack/localstack:0.12.19
+    image: localstack/localstack:2.0
     ports:
       - "4566:4566"
     volumes:
@@ -16,5 +16,3 @@ services:
         source: ./src/test/resources/localstack/init-thumbnail-processing.sh
         target: /docker-entrypoint-initaws.d/init-thumbnail-processing.sh
         read_only: true
-    environment:
-      - SERVICES=s3,sqs

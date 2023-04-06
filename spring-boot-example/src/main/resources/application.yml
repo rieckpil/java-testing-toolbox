@@ -6,5 +6,4 @@ spring:
       credentials:
         secret-key: foo
         access-key: bar
-      sqs:
-        endpoint: http://localhost:4566
+      endpoint: http://localhost:4566
