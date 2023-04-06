@@ -9,20 +9,20 @@
   <packaging>war</packaging>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
-    <microprofile.version>4.0.1</microprofile.version>
-    <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <mockito-core.version>4.6.1</mockito-core.version>
+    <jakarta.jakartaee-api.version>10.0.0</jakarta.jakartaee-api.version>
+    <microprofile.version>6.0</microprofile.version>
+    <junit-jupiter.version>5.9.0</junit-jupiter.version>
+    <mockito-core.version>5.2.0</mockito-core.version>
     <microshed-testing.version>0.9.1</microshed-testing.version>
-    <testcontainers.version>1.17.6</testcontainers.version>
+    <testcontainers.version>1.18.0</testcontainers.version>
     <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
     <mockserver-client-java.version>5.11.2</mockserver-client-java.version>
-    <rest-assured.version>4.3.0</rest-assured.version>
+    <rest-assured.version>5.3.0</rest-assured.version>
   </properties>
 
   <dependencyManagement>
@@ -53,8 +53,8 @@
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.32</version>
+      <artifactId>slf4j-reload4j</artifactId>
+      <version>2.0.7</version>
     </dependency>
 
     <dependency>
@@ -109,12 +109,12 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.0.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>
@@ -133,7 +133,7 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
-          <libertyRuntimeVersion>21.0.0.8</libertyRuntimeVersion>
+          <libertyRuntimeVersion>23.0.0.2</libertyRuntimeVersion>
           <serverStartTimeout>60</serverStartTimeout>
         </configuration>
       </plugin>
