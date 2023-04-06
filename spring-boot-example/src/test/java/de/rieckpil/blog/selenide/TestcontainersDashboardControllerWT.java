@@ -12,6 +12,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -30,7 +31,12 @@ class TestcontainersDashboardControllerWT {
 
   @Container
   static BrowserWebDriverContainer<?> webDriverContainer =
-      new BrowserWebDriverContainer<>().withCapabilities(CHROME_OPTIONS);
+      new BrowserWebDriverContainer<>(
+              System.getProperty("os.arch").equals("aarch64")
+                  ? DockerImageName.parse("seleniarm/standalone-chromium:latest")
+                      .asCompatibleSubstituteFor("selenium/standalone-chrome")
+                  : DockerImageName.parse("selenium/standalone-chrome:latest"))
+          .withCapabilities(CHROME_OPTIONS);
 
   @BeforeAll
   static void configure() {
