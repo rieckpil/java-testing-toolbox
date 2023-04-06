@@ -6,8 +6,8 @@ services:
       - POSTGRES_USER=testcontainers
       - POSTGRES_PASSWORD=secret
   keycloak:
-    image: jboss/keycloak:11.0.0
+    image: quay.io/keycloak/keycloak:18.0.2
     environment:
-      - KEYCLOAK_USER=testcontainers
-      - KEYCLOAK_PASSWORD=secret
+      - KEYCLOAK_ADMIN=testcontainers
+      - KEYCLOAK_ADMIN_PASSWORD=secret
       - DB_VENDOR=h2

@@ -17,14 +17,14 @@ class BasicContainerIT {
 
   @Container
   static GenericContainer<?> keycloak =
-      new GenericContainer<>(DockerImageName.parse("jboss/keycloak:11.0.0"))
+      new GenericContainer<>(DockerImageName.parse("quay.io/keycloak/keycloak:18.0.2"))
           .waitingFor(Wait.forHttp("/auth").forStatusCode(200))
           .withExposedPorts(8080)
           .withClasspathResourceMapping("/config/test.txt", "/tmp/test.txt", BindMode.READ_WRITE)
           .withEnv(
               Map.of(
-                  "KEYCLOAK_USER", "testcontainers",
-                  "KEYCLOAK_PASSWORD", "testcontainers",
+                  "KEYCLOAK_ADMIN", "testcontainers",
+                  "KEYCLOAK_ADMIN_PASSWORD", "testcontainers",
                   "DB_VENDOR", "h2"));
 
   @Test
