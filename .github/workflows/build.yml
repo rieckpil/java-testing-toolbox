@@ -1,6 +1,9 @@
 name: Maven Build
 
-on: [ push, pull_request ]
+on:
+  push:
+  schedule:
+    - cron: '0 15 * * *' # daily at 3pm
 
 jobs:
   build-sample-projects:
