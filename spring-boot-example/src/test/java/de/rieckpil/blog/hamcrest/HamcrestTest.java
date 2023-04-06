@@ -25,7 +25,7 @@ import static de.rieckpil.blog.hamcrest.HasOrderVolumeGreaterThan.hasOrderVolume
 import static de.rieckpil.blog.hamcrest.IsVIP.isVIP;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class HamcrestTest {
+class HamcrestTest {
 
   @Test
   void basicAssertions() {
