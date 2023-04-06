@@ -19,7 +19,10 @@ class DockerComposeIT {
           .withExposedService(
               "keycloak_1",
               8080,
-              Wait.forHttp("/auth").forStatusCode(200).withStartupTimeout(Duration.ofSeconds(30)));
+              Wait.forHttp("/auth").forStatusCode(200).withStartupTimeout(Duration.ofSeconds(60)))
+          .withOptions("--compatibility") // See issue
+          // https://github.com/testcontainers/testcontainers-java/issues/4565
+          .withLocalCompose(true);
 
   @Test
   void dockerComposeTest() {
