@@ -1,5 +1,7 @@
 package de.rieckpil.blog;
 
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -16,7 +18,6 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import java.util.List;
 
 @Path("/persons")
 @ApplicationScoped
@@ -25,8 +26,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
 
-  @PersistenceContext
-  private EntityManager entityManager;
+  @PersistenceContext private EntityManager entityManager;
 
   @GET
   public List<Person> getAllPersons() {
@@ -49,9 +49,8 @@ public class PersonResource {
   public Response createNewPerson(@Context UriInfo uriInfo, Person personToStore) {
     entityManager.persist(personToStore);
 
-    var headerLocation = uriInfo.getAbsolutePathBuilder()
-      .path(personToStore.getId().toString())
-      .build();
+    var headerLocation =
+        uriInfo.getAbsolutePathBuilder().path(personToStore.getId().toString()).build();
 
     return Response.created(headerLocation).build();
   }

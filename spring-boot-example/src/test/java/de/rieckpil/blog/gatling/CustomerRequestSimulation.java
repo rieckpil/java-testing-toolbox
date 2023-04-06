@@ -22,32 +22,35 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class CustomerRequestSimulation extends Simulation {
 
-  HttpProtocolBuilder httpProtocol = HttpDsl.http
-    .baseUrl("http://localhost:8080")
-    .acceptHeader("application/json")
-    .userAgentHeader("Gatling/Performance Test");
+  HttpProtocolBuilder httpProtocol =
+      HttpDsl.http
+          .baseUrl("http://localhost:8080")
+          .acceptHeader("application/json")
+          .userAgentHeader("Gatling/Performance Test");
 
   Iterator<Map<String, Object>> feeder =
-    Stream.generate((Supplier<Map<String, Object>>) ()
-      -> Collections.singletonMap("username", UUID.randomUUID().toString())
-    ).iterator();
+      Stream.generate(
+              (Supplier<Map<String, Object>>)
+                  () -> Collections.singletonMap("username", UUID.randomUUID().toString()))
+          .iterator();
 
-  ScenarioBuilder scn = CoreDsl.scenario("Load Test Creating Customers")
-    .feed(feeder)
-    .exec(http("create-customer-request")
-      .post("/api/customers")
-      .header("Content-Type", "application/json")
-      .body(StringBody("{ \"username\": \"${username}\" }"))
-      .check(status().is(201))
-      .check(header("Location").saveAs("location"))
-    )
-    .exec(http("get-customer-request")
-      .get(session -> session.getString("location"))
-      .check(status().is(200))
-    );
+  ScenarioBuilder scn =
+      CoreDsl.scenario("Load Test Creating Customers")
+          .feed(feeder)
+          .exec(
+              http("create-customer-request")
+                  .post("/api/customers")
+                  .header("Content-Type", "application/json")
+                  .body(StringBody("{ \"username\": \"${username}\" }"))
+                  .check(status().is(201))
+                  .check(header("Location").saveAs("location")))
+          .exec(
+              http("get-customer-request")
+                  .get(session -> session.getString("location"))
+                  .check(status().is(200)));
 
   public CustomerRequestSimulation() {
     this.setUp(scn.injectOpen(constantUsersPerSec(50).during(Duration.ofSeconds(15))))
-      .protocols(httpProtocol);
+        .protocols(httpProtocol);
   }
 }

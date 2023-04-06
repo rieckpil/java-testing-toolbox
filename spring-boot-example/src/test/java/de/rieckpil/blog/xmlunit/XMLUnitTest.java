@@ -1,5 +1,9 @@
 package de.rieckpil.blog.xmlunit;
 
+import java.io.IOException;
+
+import javax.xml.transform.Source;
+
 import org.assertj.core.util.Streams;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -20,9 +24,6 @@ import org.xmlunit.validation.Validator;
 import org.xmlunit.xpath.JAXPXPathEngine;
 import org.xmlunit.xpath.XPathEngine;
 
-import javax.xml.transform.Source;
-import java.io.IOException;
-
 import static java.nio.charset.StandardCharsets.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,65 +33,72 @@ class XMLUnitTest {
   @Test
   void compareTwoDocumentsJUnitJupiter() {
 
-    Source expected = Input.fromStream(this.getClass().getResourceAsStream("/xml/customers.xml")).build();
+    Source expected =
+        Input.fromStream(this.getClass().getResourceAsStream("/xml/customers.xml")).build();
     Source actual = Input.fromString("<customers></customers>").build();
 
     DifferenceEngine diff = new DOMDifferenceEngine();
 
-    diff.addDifferenceListener((comparison, outcome) ->
-      Assertions.fail("XML documents are not similar: " + comparison));
+    diff.addDifferenceListener(
+        (comparison, outcome) -> Assertions.fail("XML documents are not similar: " + comparison));
 
-    assertThrows(AssertionError.class, () -> {
-      diff.compare(expected, actual);
-    });
+    assertThrows(
+        AssertionError.class,
+        () -> {
+          diff.compare(expected, actual);
+        });
   }
 
   @Test
   void compareTwoDocumentsHamcrest() {
 
-    Source expected = Input
-      .fromStream(this.getClass().getResourceAsStream("/xml/customers.xml"))
-      .build();
+    Source expected =
+        Input.fromStream(this.getClass().getResourceAsStream("/xml/customers.xml")).build();
 
-    Source actual = Input
-      .fromString("<customers></customers>")
-      .build();
+    Source actual = Input.fromString("<customers></customers>").build();
 
-    assertThrows(AssertionError.class, () -> {
-      // Hamcrest
-      MatcherAssert
-        .assertThat(actual, CompareMatcher.isIdenticalTo(expected));
-    });
-
+    assertThrows(
+        AssertionError.class,
+        () -> {
+          // Hamcrest
+          MatcherAssert.assertThat(actual, CompareMatcher.isIdenticalTo(expected));
+        });
   }
 
   @Test
   void compareTwoDocumentsAssertJ() {
 
-    Source expected = Input.fromStream(this.getClass().getResourceAsStream("/xml/customers.xml")).build();
+    Source expected =
+        Input.fromStream(this.getClass().getResourceAsStream("/xml/customers.xml")).build();
     Source actual = Input.fromString("<customers></customers>").build();
 
-    assertThrows(AssertionError.class, () -> {
-      // AssertJ
-      XmlAssert.assertThat(expected)
-        .and(actual)
-        .areIdentical();
-    });
+    assertThrows(
+        AssertionError.class,
+        () -> {
+          // AssertJ
+          XmlAssert.assertThat(expected).and(actual).areIdentical();
+        });
   }
 
   @Test
   void xPathTestExample() throws IOException {
 
-    Source responseBody = Input
-      .fromString(new String(this.getClass().getResourceAsStream("/xml/customers.xml").readAllBytes(), UTF_8))
-      .build();
+    Source responseBody =
+        Input.fromString(
+                new String(
+                    this.getClass().getResourceAsStream("/xml/customers.xml").readAllBytes(),
+                    UTF_8))
+            .build();
 
     XPathEngine xpath = new JAXPXPathEngine();
 
     Iterable<Node> allCustomers = xpath.selectNodes("//customer", responseBody);
-    Iterable<Node> amountOfVIPs = xpath.selectNodes("//customer/tags/tag[text()=\"VIP\"]", responseBody);
-    Iterable<Node> amountOfLaptopOrders = xpath.selectNodes("//products/product/name[text()=\"Laptop\"]", responseBody);
-    String cityNameLastCustomer = xpath.evaluate("//customer[last()]/address/city/text()", responseBody);
+    Iterable<Node> amountOfVIPs =
+        xpath.selectNodes("//customer/tags/tag[text()=\"VIP\"]", responseBody);
+    Iterable<Node> amountOfLaptopOrders =
+        xpath.selectNodes("//products/product/name[text()=\"Laptop\"]", responseBody);
+    String cityNameLastCustomer =
+        xpath.evaluate("//customer[last()]/address/city/text()", responseBody);
 
     assertEquals(3, Streams.stream(allCustomers).count());
     assertEquals(1, Streams.stream(amountOfVIPs).count());
@@ -104,8 +112,10 @@ class XMLUnitTest {
 
     MatcherAssert.assertThat(responseBody, HasXPathMatcher.hasXPath("//tags"));
 
-    MatcherAssert.assertThat(responseBody,
-      EvaluateXPathMatcher.hasXPath("//customer[last()]/address/city/text()", CoreMatchers.is("São Paulo")));
+    MatcherAssert.assertThat(
+        responseBody,
+        EvaluateXPathMatcher.hasXPath(
+            "//customer[last()]/address/city/text()", CoreMatchers.is("São Paulo")));
 
     MatcherAssert.assertThat(responseBody, CoreMatchers.not(HasXPathMatcher.hasXPath("//cars")));
   }
@@ -114,10 +124,12 @@ class XMLUnitTest {
   void xmlSchemaValidation() {
 
     Validator validator = Validator.forLanguage(Languages.W3C_XML_SCHEMA_NS_URI);
-    validator.setSchemaSource(Input.fromStream(XMLUnitTest.class.getResourceAsStream("/xml/customers.xsd")).build());
+    validator.setSchemaSource(
+        Input.fromStream(XMLUnitTest.class.getResourceAsStream("/xml/customers.xsd")).build());
 
-    ValidationResult validationResult = validator
-      .validateInstance(Input.fromStream(XMLUnitTest.class.getResourceAsStream("/xml/customers.xml")).build());
+    ValidationResult validationResult =
+        validator.validateInstance(
+            Input.fromStream(XMLUnitTest.class.getResourceAsStream("/xml/customers.xml")).build());
 
     assertTrue(validationResult.isValid(), "XML payload did not match XSD");
   }
@@ -125,10 +137,11 @@ class XMLUnitTest {
   @Test
   void xmlSchemaValidationFailure() {
     Validator validator = Validator.forLanguage(Languages.W3C_XML_SCHEMA_NS_URI);
-    validator.setSchemaSource(Input.fromStream(XMLUnitTest.class.getResourceAsStream("/xml/customers.xsd")).build());
+    validator.setSchemaSource(
+        Input.fromStream(XMLUnitTest.class.getResourceAsStream("/xml/customers.xsd")).build());
 
-    ValidationResult failingResult = validator
-      .validateInstance(Input.fromString("<customers><car></car></customers>").build());
+    ValidationResult failingResult =
+        validator.validateInstance(Input.fromString("<customers><car></car></customers>").build());
 
     assertFalse(failingResult.isValid(), "XML payload did match XSD");
 

@@ -7,6 +7,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableJGiven
 @ComponentScan(basePackages = {"de.rieckpil.blog.zendesk"})
-public class JGivenTestConfig {
-
-}
+public class JGivenTestConfig {}

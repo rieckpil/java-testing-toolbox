@@ -29,5 +29,4 @@ public class WireMockSetupTest {
     assertNotNull(wireMockServer);
     assertTrue(wireMockServer.isRunning());
   }
-
 }

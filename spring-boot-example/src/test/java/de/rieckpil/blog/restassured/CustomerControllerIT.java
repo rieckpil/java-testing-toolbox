@@ -1,17 +1,16 @@
 package de.rieckpil.blog.restassured;
 
+import java.net.URI;
+import java.util.List;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
-import java.net.URI;
-import java.util.List;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
@@ -22,33 +21,33 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class CustomerControllerIT {
 
-  @LocalServerPort
-  private Integer port;
+  @LocalServerPort private Integer port;
 
   @Test
   void basicRESTAssuredJSONExample() {
     given()
-      .accept("application/json")
-      .header("X-Custom-Header", "Duke")
-      .auth().basic("duke", "secret")
-    .when()
-      .get(URI.create("http://localhost:" + port + "/api/customers"))
-    .then()
-      .statusCode(200)
-      .header("Content-Type", Matchers.equalTo("application/json"))
-      .body("[0].username", Matchers.equalTo("duke42"));
+        .accept("application/json")
+        .header("X-Custom-Header", "Duke")
+        .auth()
+        .basic("duke", "secret")
+        .when()
+        .get(URI.create("http://localhost:" + port + "/api/customers"))
+        .then()
+        .statusCode(200)
+        .header("Content-Type", Matchers.equalTo("application/json"))
+        .body("[0].username", Matchers.equalTo("duke42"));
   }
 
   @Test
   void basicRESTAssuredHTTPPostJSONExample() {
     given()
-      .contentType("application/json")
-      .body("{\"username\":\"duke\"}")
-    .when()
-      .post(URI.create("http://localhost:" + port + "/api/customers"))
-    .then()
-      .statusCode(201)
-      .header("Location", Matchers.notNullValue());
+        .contentType("application/json")
+        .body("{\"username\":\"duke\"}")
+        .when()
+        .post(URI.create("http://localhost:" + port + "/api/customers"))
+        .then()
+        .statusCode(201)
+        .header("Location", Matchers.notNullValue());
   }
 
   @Test
@@ -65,54 +64,54 @@ class CustomerControllerIT {
 
     // What is the total order amount for the first customer?
     get(uri)
-      .then()
-      .body("[0].orders.collect{it.products}.flatten().sum{it.price * it.quantity}", greaterThan(6000.00));
+        .then()
+        .body(
+            "[0].orders.collect{it.products}.flatten().sum{it.price * it.quantity}",
+            greaterThan(6000.00));
 
     // Which customer has the most tags?
-    get(uri)
-      .then()
-      .body("max{ it.tags.size() }.username", equalTo("duke42"));
+    get(uri).then().body("max{ it.tags.size() }.username", equalTo("duke42"));
 
     // Which products where ordered with a quantity >= 42?
     get(uri)
-      .then()
-      .body("collectMany{c -> c.orders.collect { it.products }}.flatten().findAll{it.quantity >= 42}.name",
-        hasItems("Chocolate", "Chewing Gum"));
-
+        .then()
+        .body(
+            "collectMany{c -> c.orders.collect { it.products }}.flatten().findAll{it.quantity >= 42}.name",
+            hasItems("Chocolate", "Chewing Gum"));
   }
 
   @Test
   void basicRESTAssuredXMLExample() {
 
     given()
-      .accept("application/xml")
-      .header("X-Custom-Header", "Duke")
-      .auth().basic("duke", "secret")
-    .when()
-      .get(URI.create("http://localhost:" + port + "/api/customers"))
-    .then()
-      .statusCode(200)
-      .header("Content-Type", equalTo("application/xml"))
-      .body("List.item[0].username", equalTo("duke42"));
-
+        .accept("application/xml")
+        .header("X-Custom-Header", "Duke")
+        .auth()
+        .basic("duke", "secret")
+        .when()
+        .get(URI.create("http://localhost:" + port + "/api/customers"))
+        .then()
+        .statusCode(200)
+        .header("Content-Type", equalTo("application/xml"))
+        .body("List.item[0].username", equalTo("duke42"));
   }
 
   @Test
   void advancedRESTAssuredXMLVerification() {
     URI uri = URI.create("http://localhost:" + port + "/api/customers");
 
-    List<String> tagList = given().accept("application/xml")
-      .get(uri).xmlPath().getList("List.item[0].tags.tag");
+    List<String> tagList =
+        given().accept("application/xml").get(uri).xmlPath().getList("List.item[0].tags.tag");
 
     assertEquals(3, tagList.size());
 
     // Which customers has the least tags?
     given()
-      .accept("application/xml")
-    .when()
-      .get(uri)
-    .then()
-      .body("List.item.min { it.tags.tag.size() }.username", equalTo("bob"));
+        .accept("application/xml")
+        .when()
+        .get(uri)
+        .then()
+        .body("List.item.min { it.tags.tag.size() }.username", equalTo("bob"));
   }
 
   @Test
@@ -132,13 +131,12 @@ class CustomerControllerIT {
     ResponseSpecification entityCreationSpec = responseSpecBuilder.build();
 
     given()
-      .spec(entityCreationRequest)
-      .header("X-Super-Important", "secret")
-    .when()
-      .post("/api/customers")
-    .then()
-      .spec(entityCreationSpec)
-      .body(emptyString());
-
+        .spec(entityCreationRequest)
+        .header("X-Super-Important", "secret")
+        .when()
+        .post("/api/customers")
+        .then()
+        .spec(entityCreationSpec)
+        .body(emptyString());
   }
 }

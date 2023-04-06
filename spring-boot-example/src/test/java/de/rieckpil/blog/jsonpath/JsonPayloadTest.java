@@ -1,12 +1,12 @@
 package de.rieckpil.blog.jsonpath;
 
-import com.jayway.jsonpath.JsonPath;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import com.jayway.jsonpath.JsonPath;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,9 +17,9 @@ class JsonPayloadTest {
 
   static {
     try {
-      jsonPayload = new String(JsonPayloadTest.class
-        .getResourceAsStream("/json/customers.json")
-        .readAllBytes());
+      jsonPayload =
+          new String(
+              JsonPayloadTest.class.getResourceAsStream("/json/customers.json").readAllBytes());
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -37,8 +37,17 @@ class JsonPayloadTest {
     assertEquals("duke42", username);
     assertEquals("Berlin", city);
 
-    assertTrue(tags.containsAll(Arrays.asList("EARLY_BIRD", "VIP", "PLATINUM_MEMBER", "DELAYED_PAYMENTS", "BRONZE_MEMBER", "GOLD_MEMBER")));
-    assertTrue(productNames.containsAll(Arrays.asList("iPhone 12", "Laptop", "MacBook Pro", "Kindle")));
+    assertTrue(
+        tags.containsAll(
+            Arrays.asList(
+                "EARLY_BIRD",
+                "VIP",
+                "PLATINUM_MEMBER",
+                "DELAYED_PAYMENTS",
+                "BRONZE_MEMBER",
+                "GOLD_MEMBER")));
+    assertTrue(
+        productNames.containsAll(Arrays.asList("iPhone 12", "Laptop", "MacBook Pro", "Kindle")));
   }
 
   @Test
@@ -77,13 +86,14 @@ class JsonPayloadTest {
     JsonPath.parse(jsonPayload).read("$[?(@.tags.size() > 2)]");
 
     // We can also combine the expressions with || and &&
-    JsonPath.parse(jsonPayload).read("$[?(@.tags.size() > 2 || @.address.city in ['Berlin', 'Paris'])]");
+    JsonPath.parse(jsonPayload)
+        .read("$[?(@.tags.size() > 2 || @.address.city in ['Berlin', 'Paris'])]");
 
     // Which orders have more than one product for the customer duke42?
-    JsonPath.parse(jsonPayload).read("$[?(@.username == 'duke42')].orders[?(@.products.length() > 1)]");
+    JsonPath.parse(jsonPayload)
+        .read("$[?(@.username == 'duke42')].orders[?(@.products.length() > 1)]");
 
     // For which customers did we specify the continent as part of the address?
     JsonPath.parse(jsonPayload).read("$[?(@.address.continent)]");
-
   }
 }

@@ -1,11 +1,9 @@
 package de.rieckpil.blog.selenide;
 
 import com.codeborne.selenide.*;
-import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -21,16 +19,16 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class TestcontainersDashboardControllerWT {
 
-  @LocalServerPort
-  private Integer port;
+  @LocalServerPort private Integer port;
 
   @Container
   public static BrowserWebDriverContainer<?> webDriverContainer =
-    new BrowserWebDriverContainer<>()
-      .withCapabilities(new ChromeOptions()
-        .addArguments("--headless")
-        .addArguments("--no-sandbox")
-        .addArguments("--disable-dev-shm-usage"));
+      new BrowserWebDriverContainer<>()
+          .withCapabilities(
+              new ChromeOptions()
+                  .addArguments("--headless")
+                  .addArguments("--no-sandbox")
+                  .addArguments("--disable-dev-shm-usage"));
 
   @BeforeAll
   static void configure() {

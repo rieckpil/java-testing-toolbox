@@ -5,8 +5,7 @@ public class ImageUploadEvent {
   private String s3Bucket;
   private String s3Key;
 
-  public ImageUploadEvent() {
-  }
+  public ImageUploadEvent() {}
 
   public ImageUploadEvent(String s3Bucket, String s3Key) {
     this.s3Bucket = s3Bucket;
@@ -31,9 +30,6 @@ public class ImageUploadEvent {
 
   @Override
   public String toString() {
-    return "ImageUploadEvent{" +
-      "s3Bucket='" + s3Bucket + '\'' +
-      ", s3Key='" + s3Key + '\'' +
-      '}';
+    return "ImageUploadEvent{" + "s3Bucket='" + s3Bucket + '\'' + ", s3Key='" + s3Key + '\'' + '}';
   }
 }

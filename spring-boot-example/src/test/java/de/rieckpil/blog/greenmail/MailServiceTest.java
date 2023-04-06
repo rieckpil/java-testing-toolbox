@@ -4,23 +4,21 @@ import com.icegreen.greenmail.junit5.GreenMailExtension;
 import com.icegreen.greenmail.util.GreenMailUtil;
 import com.icegreen.greenmail.util.ServerSetupTest;
 import de.rieckpil.blog.mailing.MailService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
-
 import jakarta.mail.Message;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MailServiceTest {
 
   @RegisterExtension
-  static GreenMailExtension greenMail =
-    new GreenMailExtension(ServerSetupTest.SMTP_IMAP);
+  static GreenMailExtension greenMail = new GreenMailExtension(ServerSetupTest.SMTP_IMAP);
 
   private MailService cut;
 
@@ -29,12 +27,13 @@ class MailServiceTest {
 
     greenMail.setUser("admin@java.io", "my_secret");
 
-    this.cut = new MailService(
-      greenMail.getSmtp().getBindTo(),
-      greenMail.getSmtp().getPort(),
-      greenMail.getImap().getPort(),
-      "admin@java.io",
-      "my_secret");
+    this.cut =
+        new MailService(
+            greenMail.getSmtp().getBindTo(),
+            greenMail.getSmtp().getPort(),
+            greenMail.getImap().getPort(),
+            "admin@java.io",
+            "my_secret");
   }
 
   @Test
@@ -54,8 +53,7 @@ class MailServiceTest {
 
     Message msg = new MimeMessage(smtpSession);
     msg.setFrom(new InternetAddress("test@java.io"));
-    msg.addRecipient(Message.RecipientType.TO,
-      new InternetAddress("mike@java.io"));
+    msg.addRecipient(Message.RecipientType.TO, new InternetAddress("mike@java.io"));
     msg.setSubject("Test");
     msg.setText("Hello World from GreenMail!");
     Transport.send(msg);

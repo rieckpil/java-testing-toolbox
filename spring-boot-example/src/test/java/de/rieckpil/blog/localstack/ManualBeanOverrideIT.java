@@ -1,5 +1,8 @@
 package de.rieckpil.blog.localstack;
 
+import java.io.IOException;
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +19,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 
-import java.io.IOException;
-import java.time.Duration;
-
 import static org.awaitility.Awaitility.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.testcontainers.containers.BindMode.READ_ONLY;
@@ -29,31 +29,41 @@ class ManualBeanOverrideIT {
 
   @Container
   static LocalStackContainer localStack =
-    new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.19"))
-      .withServices(LocalStackContainer.Service.S3, LocalStackContainer.Service.SQS)
-      .withClasspathResourceMapping("/localstack", "/docker-entrypoint-initaws.d", READ_ONLY)
-      .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
+      new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.19"))
+          .withServices(LocalStackContainer.Service.S3, LocalStackContainer.Service.SQS)
+          .withClasspathResourceMapping("/localstack", "/docker-entrypoint-initaws.d", READ_ONLY)
+          .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
 
-  @Autowired
-  private S3Client s3Client;
+  @Autowired private S3Client s3Client;
 
-  @Autowired
-  private SqsClient sqsClient;
+  @Autowired private SqsClient sqsClient;
 
   @Test
   void shouldProcessIncomingUploadEventAndUploadThumbnailImage() throws IOException {
 
-    s3Client
-      .putObject(PutObjectRequest.builder().bucket("raw-images").key("duke-mascot.png").build(), RequestBody.fromFile(new ClassPathResource("images/duke-mascot.png")
-        .getFile()));
+    s3Client.putObject(
+        PutObjectRequest.builder().bucket("raw-images").key("duke-mascot.png").build(),
+        RequestBody.fromFile(new ClassPathResource("images/duke-mascot.png").getFile()));
 
-    sqsClient
-      .sendMessage(SendMessageRequest.builder().queueUrl("http://localhost:" + localStack.getMappedPort(4566) + "/000000000000/image-upload-events")
-        .messageBody("{\"s3Bucket\": \"raw-images\", \"s3Key\": \"duke-mascot.png\"}").build());
+    sqsClient.sendMessage(
+        SendMessageRequest.builder()
+            .queueUrl(
+                "http://localhost:"
+                    + localStack.getMappedPort(4566)
+                    + "/000000000000/image-upload-events")
+            .messageBody("{\"s3Bucket\": \"raw-images\", \"s3Key\": \"duke-mascot.png\"}")
+            .build());
 
     given()
-      .atMost(Duration.ofSeconds(5))
-      .await()
-      .untilAsserted(() -> assertNotNull(s3Client.getObject(GetObjectRequest.builder().bucket("processed-images").key("thumbnail-duke-mascot.png").build())));
+        .atMost(Duration.ofSeconds(5))
+        .await()
+        .untilAsserted(
+            () ->
+                assertNotNull(
+                    s3Client.getObject(
+                        GetObjectRequest.builder()
+                            .bucket("processed-images")
+                            .key("thumbnail-duke-mascot.png")
+                            .build())));
   }
 }

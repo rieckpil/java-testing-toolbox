@@ -18,12 +18,10 @@ public class ZendeskController {
     this.zendeskService = zendeskService;
   }
 
-  @GetMapping(path ="/create-zendesk-ticket/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "/create-zendesk-ticket/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  ResponseEntity<String> createZendeskTicket(@PathVariable String userId){
+  ResponseEntity<String> createZendeskTicket(@PathVariable String userId) {
     final long zendeskTicketId = zendeskService.createZendeskTicketForUser(userId);
     return ResponseEntity.ok().body(String.valueOf(zendeskTicketId));
   }
-
-
 }

@@ -1,14 +1,14 @@
 package de.rieckpil.blog.testng;
 
+import java.math.BigDecimal;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
 import de.rieckpil.blog.registration.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import java.math.BigDecimal;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class TestNGExampleTest {
 
@@ -37,21 +37,19 @@ public class TestNGExampleTest {
 
     Assert.assertNotNull(new BigDecimal("42"));
 
-    Assert.assertThrows(ArithmeticException.class, () -> {
-      int result = 4 / 0;
-    });
+    Assert.assertThrows(
+        ArithmeticException.class,
+        () -> {
+          int result = 4 / 0;
+        });
 
-// checks for equal object references using ==
+    // checks for equal object references using ==
     Assert.assertSame(userOne, userTwo);
 
-    Assert.assertEquals(new int[]{42, 13, 7}, openInvoiceIds);
-    Assert.assertEqualsNoOrder(new Integer[]{42, 13, 7}, new Integer[]{13, 7, 42});
+    Assert.assertEquals(new int[] {42, 13, 7}, openInvoiceIds);
+    Assert.assertEqualsNoOrder(new Integer[] {42, 13, 7}, new Integer[] {13, 7, 42});
 
-    Assert.assertEqualsDeep(
-      Map.of("name", "duke", "age", 42),
-      Map.of("age", 42, "name", "duke")
-    );
-
+    Assert.assertEqualsDeep(Map.of("name", "duke", "age", 42), Map.of("age", 42, "name", "duke"));
   }
 
   @Test
@@ -69,14 +67,22 @@ public class TestNGExampleTest {
     Assert.assertEquals("DUKE", "duke".toUpperCase());
   }
 
-  @Test(timeOut = 1000, enabled = false, invocationCount = 5, threadPoolSize = 5, successPercentage = 60)
+  @Test(
+      timeOut = 1000,
+      enabled = false,
+      invocationCount = 5,
+      threadPoolSize = 5,
+      successPercentage = 60)
   public void parallelTest() {
     int randomNumber = ThreadLocalRandom.current().nextInt(300, 1500);
     System.out.println("Random number is: " + randomNumber);
     Assert.assertTrue(randomNumber < 200);
   }
 
-  @Test(enabled = false, description = "∞", expectedExceptions = {ArithmeticException.class, IllegalArgumentException.class})
+  @Test(
+      enabled = false,
+      description = "∞",
+      expectedExceptions = {ArithmeticException.class, IllegalArgumentException.class})
   public void temporaryDisabled() {
     Assert.assertEquals("INFINITY", 4 / 0);
   }

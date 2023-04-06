@@ -19,15 +19,16 @@ class PersonResourceIT {
   @Test
   void shouldCreatePerson() {
 
-    Headers responseHeaders = given()
-      .contentType(ContentType.JSON)
-      .when()
-      .body("{\"firstName\": \"duke\", \"lastName\":\"jakarta\"}")
-      .post("/resources/persons")
-      .then()
-      .statusCode(201)
-      .extract()
-      .headers();
+    Headers responseHeaders =
+        given()
+            .contentType(ContentType.JSON)
+            .when()
+            .body("{\"firstName\": \"duke\", \"lastName\":\"jakarta\"}")
+            .post("/resources/persons")
+            .then()
+            .statusCode(201)
+            .extract()
+            .headers();
 
     String locationHeader = responseHeaders.getValue("Location");
     assertNotNull(locationHeader);
@@ -37,14 +38,15 @@ class PersonResourceIT {
 
     System.out.println(locationHeader);
 
-    Person createdPerson = given()
-      .accept(ContentType.JSON)
-      .when()
-      .get("/resources/persons/" + personId)
-      .then()
-      .statusCode(200)
-      .extract()
-      .as(Person.class);
+    Person createdPerson =
+        given()
+            .accept(ContentType.JSON)
+            .when()
+            .get("/resources/persons/" + personId)
+            .then()
+            .statusCode(200)
+            .extract()
+            .as(Person.class);
 
     assertEquals("duke", createdPerson.getFirstName());
     assertEquals("jakarta", createdPerson.getLastName());

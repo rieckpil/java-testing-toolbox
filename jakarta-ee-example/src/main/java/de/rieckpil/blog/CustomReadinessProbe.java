@@ -9,9 +9,6 @@ public class CustomReadinessProbe implements HealthCheck {
 
   @Override
   public HealthCheckResponse call() {
-    return HealthCheckResponse
-      .named("ready")
-      .up()
-      .build();
+    return HealthCheckResponse.named("ready").up().build();
   }
 }

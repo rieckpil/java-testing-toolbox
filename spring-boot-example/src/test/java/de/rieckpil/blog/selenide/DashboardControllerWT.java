@@ -20,17 +20,17 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class DashboardControllerWT {
 
-  @LocalServerPort
-  private Integer port;
+  @LocalServerPort private Integer port;
 
   @RegisterExtension
-  static ScreenShooterExtension screenShooterExtension = new ScreenShooterExtension()
-    .to("target/selenide");
+  static ScreenShooterExtension screenShooterExtension =
+      new ScreenShooterExtension().to("target/selenide");
 
   @BeforeAll
   static void configure() {
     ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--no-sandbox", "--disable-dev-shm-usage", "--headless", "--disable-gpu");
+    chromeOptions.addArguments(
+        "--no-sandbox", "--disable-dev-shm-usage", "--headless", "--disable-gpu");
 
     Configuration.browserCapabilities = chromeOptions;
 

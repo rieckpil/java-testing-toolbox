@@ -9,9 +9,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Person {
 
-  @Id
-  @GeneratedValue
-  private Long id;
+  @Id @GeneratedValue private Long id;
 
   @Column(nullable = false)
   private String firstName;
@@ -19,8 +17,7 @@ public class Person {
   @Column(nullable = false)
   private String lastName;
 
-  public Person() {
-  }
+  public Person() {}
 
   public Person(JsonObject jsonObject) {
     this.firstName = jsonObject.getString("firstName", "not provided");

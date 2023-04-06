@@ -6,7 +6,6 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -18,9 +17,7 @@ public class SampleResource {
   @ConfigProperty(name = "message")
   private String message;
 
-  @Inject
-  @RestClient
-  private QuoteRestClient quoteRestClient;
+  @Inject @RestClient private QuoteRestClient quoteRestClient;
 
   @GET
   @Path("/message")
