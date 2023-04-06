@@ -27,7 +27,7 @@ jobs:
 
       - name: Build the project
         working-directory: ${{ matrix.projects }}
-        run: ./mvnw -B verify
+        run: ./mvnw --no-transfer-progress verify
 
       - name: Log test output on failure
         if: failure() || cancelled()
