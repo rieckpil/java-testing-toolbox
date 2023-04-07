@@ -1,14 +1,15 @@
 package de.rieckpil.blog.thumbnail;
 
-import java.io.File;
 import java.io.IOException;
 
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 // @Component
@@ -27,18 +28,20 @@ public class ImageUploadEventListener {
   @SqsListener("image-upload-events")
   public void processImageUploadEvent(ImageUploadEvent event) throws IOException {
 
-    File fileToBeResized = File.createTempFile(event.getS3Key(), ".tmp");
-    s3Client.getObject(
-        GetObjectRequest.builder().bucket(event.getS3Bucket()).key(event.getS3Key()).build(),
-        fileToBeResized.toPath());
+    LOG.info("Consumed event: {}", event);
 
-    File resizedFile = imageResizer.createThumbnail(fileToBeResized);
+    ResponseBytes<GetObjectResponse> objectAsBytes =
+        s3Client.getObjectAsBytes(
+            GetObjectRequest.builder().bucket(event.getS3Bucket()).key(event.getS3Key()).build());
+
+    byte[] resizedFile = imageResizer.createThumbnail(objectAsBytes.asInputStream());
+
     s3Client.putObject(
         PutObjectRequest.builder()
             .bucket("processed-images")
             .key("thumbnail-" + event.getS3Key())
             .build(),
-        RequestBody.fromFile(resizedFile));
+        RequestBody.fromBytes(resizedFile));
 
     LOG.info(
         "Successfully uploaded thumbnail to S3 for file: '{}'",

@@ -5,11 +5,12 @@ import java.time.Duration;
 
 import de.rieckpil.blog.thumbnail.ImageUploadEventListener;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
-import io.awspring.cloud.test.sqs.SqsTest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -21,6 +22,7 @@ import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import static org.awaitility.Awaitility.given;
@@ -28,10 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.testcontainers.containers.BindMode.READ_ONLY;
 import static org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import static org.testcontainers.containers.localstack.LocalStackContainer.Service.S3;
-import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS;
 
 @Testcontainers
-@SqsTest(ImageUploadEventListener.class)
+@SpringBootTest
+@Import(ImageUploadEventListener.class)
 class ImageUploadEventListenerIT {
 
   private static final Logger LOG = LoggerFactory.getLogger(ImageUploadEventListenerIT.class);
@@ -48,11 +50,7 @@ class ImageUploadEventListenerIT {
 
   @DynamicPropertySource
   static void configureLocalStackAccess(DynamicPropertyRegistry registry) {
-    registry.add("spring.cloud.aws.sqs.enabled", () -> true);
-    registry.add("spring.cloud.aws.s3.endpoint", () -> localStack.getEndpointOverride(S3));
-    registry.add("spring.cloud.aws.sqs.endpoint", () -> localStack.getEndpointOverride(SQS));
-    registry.add("spring.cloud.aws.credentials.access-key", () -> localStack.getAccessKey());
-    registry.add("spring.cloud.aws.credentials.secret-key", () -> localStack.getSecretKey());
+    registry.add("spring.cloud.aws.endpoint", () -> localStack.getEndpointOverride(S3));
   }
 
   @Autowired private S3Client s3Client;
@@ -73,6 +71,7 @@ class ImageUploadEventListenerIT {
     given()
         .atMost(Duration.ofSeconds(5))
         .await()
+        .ignoreException(NoSuchKeyException.class)
         .untilAsserted(
             () ->
                 assertNotNull(
