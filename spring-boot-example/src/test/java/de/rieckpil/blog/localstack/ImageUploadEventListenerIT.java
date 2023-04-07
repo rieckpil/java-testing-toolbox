@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 import de.rieckpil.blog.thumbnail.ImageUploadEventListener;
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import io.awspring.cloud.test.sqs.SqsTest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,8 +22,6 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 
 import static org.awaitility.Awaitility.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -58,7 +57,7 @@ class ImageUploadEventListenerIT {
 
   @Autowired private S3Client s3Client;
 
-  @Autowired private SqsClient sqsClient;
+  @Autowired private SqsTemplate sqsTemplate;
 
   @Test
   void shouldProcessIncomingUploadEventAndUploadThumbnailImage() throws IOException {
@@ -68,14 +67,8 @@ class ImageUploadEventListenerIT {
         RequestBody.fromBytes(
             new ClassPathResource("images/duke-mascot.png").getInputStream().readAllBytes()));
 
-    sqsClient.sendMessage(
-        SendMessageRequest.builder()
-            .queueUrl(
-                "http://localhost:"
-                    + localStack.getMappedPort(4566)
-                    + "/000000000000/image-upload-events")
-            .messageBody("{\"s3Bucket\": \"raw-images\", \"s3Key\": \"duke-mascot.png\"}")
-            .build());
+    sqsTemplate.send(
+        "image-upload-events", "{\"s3Bucket\": \"raw-images\", \"s3Key\": \"duke-mascot.png\"}");
 
     given()
         .atMost(Duration.ofSeconds(5))
