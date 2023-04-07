@@ -29,9 +29,9 @@ class ManualBeanOverrideIT {
 
   @Container
   static LocalStackContainer localStack =
-      new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.19"))
+      new LocalStackContainer(DockerImageName.parse("localstack/localstack:2.0.0"))
           .withServices(LocalStackContainer.Service.S3, LocalStackContainer.Service.SQS)
-          .withClasspathResourceMapping("/localstack", "/docker-entrypoint-initaws.d", READ_ONLY)
+          .withClasspathResourceMapping("/localstack", "/etc/localstack/init/ready.d", READ_ONLY)
           .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
 
   @Autowired private S3Client s3Client;

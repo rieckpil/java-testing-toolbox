@@ -3,13 +3,17 @@ package de.rieckpil.blog.localstack;
 import java.io.IOException;
 import java.time.Duration;
 
+import de.rieckpil.blog.thumbnail.ImageUploadEventListener;
+import io.awspring.cloud.test.sqs.SqsTest;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.localstack.LocalStackContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -29,15 +33,21 @@ import static org.testcontainers.containers.localstack.LocalStackContainer.Servi
 import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS;
 
 @Testcontainers
-@SpringBootTest
-public class ImageUploadEventListenerIT {
+@SqsTest(ImageUploadEventListener.class)
+class ImageUploadEventListenerIT {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ImageUploadEventListenerIT.class);
 
   @Container
   static LocalStackContainer localStack =
-      new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.19"))
+      new LocalStackContainer(DockerImageName.parse("localstack/localstack:2.0.0"))
           .withServices(Service.S3, Service.SQS)
-          .withClasspathResourceMapping("/localstack", "/docker-entrypoint-initaws.d", READ_ONLY)
-          .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
+          .withClasspathResourceMapping(
+              "/localstack/init-thumbnail-processing.sh",
+              "/etc/localstack/init/ready.d/init.sh",
+              READ_ONLY)
+          .waitingFor(Wait.forLogMessage(".*Initialized\\.", 1))
+          .withLogConsumer(new Slf4jLogConsumer(LOG));
 
   @DynamicPropertySource
   static void configureLocalStackAccess(DynamicPropertyRegistry registry) {
