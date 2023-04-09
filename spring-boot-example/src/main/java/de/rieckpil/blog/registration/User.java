@@ -8,8 +8,7 @@ public class User {
   private String username;
   private LocalDateTime createdAt;
 
-  public User() {
-  }
+  public User() {}
 
   public User(String username) {
     this.username = username;

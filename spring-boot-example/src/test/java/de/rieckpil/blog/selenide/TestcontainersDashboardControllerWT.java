@@ -1,49 +1,58 @@
 package de.rieckpil.blog.selenide;
 
 import com.codeborne.selenide.*;
-import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.env.Environment;
+import org.testcontainers.Testcontainers;
 import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.apache.commons.lang.SystemUtils;
+import org.testcontainers.utility.DockerImageName;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class TestcontainersDashboardControllerWT {
 
-  @LocalServerPort
-  private Integer port;
+  private static final ChromeOptions CHROME_OPTIONS =
+      new ChromeOptions()
+          .addArguments("--headless")
+          .addArguments("--no-sandbox")
+          .addArguments("--disable-dev-shm-usage")
+          .addArguments("--remote-allow-origins=*");
 
-  @Container
-  public static BrowserWebDriverContainer<?> webDriverContainer =
-    new BrowserWebDriverContainer<>()
-      .withCapabilities(new ChromeOptions()
-        .addArguments("--headless")
-        .addArguments("--no-sandbox")
-        .addArguments("--disable-dev-shm-usage"));
+  static BrowserWebDriverContainer<?> webDriverContainer =
+      new BrowserWebDriverContainer<>(
+              System.getProperty("os.arch").equals("aarch64")
+                  ? DockerImageName.parse("seleniarm/standalone-chromium:latest")
+                      .asCompatibleSubstituteFor("selenium/standalone-chrome")
+                  : DockerImageName.parse("selenium/standalone-chrome:latest"))
+          .withCapabilities(CHROME_OPTIONS);
 
   @BeforeAll
-  static void configure() {
-    Configuration.timeout = 2000;
+  static void configure(@Autowired Environment environment) {
+    Integer port = environment.getProperty("local.server.port", Integer.class);
 
-    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
+    Testcontainers.exposeHostPorts(port);
+
+    webDriverContainer.start();
+
+    Configuration.timeout = 2000;
+    Configuration.baseUrl = String.format("http://host.testcontainers.internal:%d", port);
+
+    RemoteWebDriver remoteWebDriver =
+        new RemoteWebDriver(webDriverContainer.getSeleniumAddress(), CHROME_OPTIONS, false);
     WebDriverRunner.setWebDriver(remoteWebDriver);
   }
 
   @Test
   void accessDashboardPage() {
 
-    Selenide.open("http://" + getHost() + ":" + port + "/dashboard");
+    Selenide.open("/dashboard");
 
     Selenide.$(By.tagName("button")).click();
 
@@ -58,7 +67,7 @@ class TestcontainersDashboardControllerWT {
 
   @Test
   void accessDashboardPageAndLoadCustomers() {
-    Selenide.open("http://" + getHost() + ":" + port + "/dashboard");
+    Selenide.open("/dashboard");
 
     // customer table should not be part of the DOM
     Selenide.$(By.id("all-customers")).shouldNot(Condition.exist);
@@ -74,9 +83,5 @@ class TestcontainersDashboardControllerWT {
     Selenide.$(By.id("all-customers")).should(Condition.exist);
 
     Selenide.$$(By.className("customer-information")).shouldHave(CollectionCondition.size(3));
-  }
-
-  private String getHost() {
-    return SystemUtils.IS_OS_LINUX ? "172.17.0.1" : "host.docker.internal";
   }
 }

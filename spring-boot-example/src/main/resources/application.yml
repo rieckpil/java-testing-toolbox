@@ -1,9 +1,9 @@
-cloud:
-  aws:
-    region:
-      static: eu-central-1
-    credentials:
-      secret-key: foo
-      access-key: bar
-    sqs:
+spring:
+  cloud:
+    aws:
+      region:
+        static: eu-central-1
+      credentials:
+        secret-key: foo
+        access-key: bar
       endpoint: http://localhost:4566

@@ -6,7 +6,7 @@ services:
       - POSTGRES_USER=testcontainers
       - POSTGRES_PASSWORD=secret
   keycloak:
-    image: jboss/keycloak:11.0.0
+    image: quay.io/keycloak/keycloak:17.0.0-legacy
     environment:
       - KEYCLOAK_USER=testcontainers
       - KEYCLOAK_PASSWORD=secret

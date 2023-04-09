@@ -1,17 +1,15 @@
 package de.rieckpil.blog;
 
-import javax.json.JsonObject;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import jakarta.json.JsonObject;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
 public class Person {
 
-  @Id
-  @GeneratedValue
-  private Long id;
+  @Id @GeneratedValue private Long id;
 
   @Column(nullable = false)
   private String firstName;
@@ -19,8 +17,7 @@ public class Person {
   @Column(nullable = false)
   private String lastName;
 
-  public Person() {
-  }
+  public Person() {}
 
   public Person(JsonObject jsonObject) {
     this.firstName = jsonObject.getString("firstName", "not provided");

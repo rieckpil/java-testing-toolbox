@@ -5,7 +5,6 @@ import de.rieckpil.blog.registration.UserRegistrationService;
 import de.rieckpil.blog.registration.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,12 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 
@@ -27,11 +23,9 @@ import static org.mockito.Mockito.times;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class UserRegistrationServiceTest {
 
-  @Mock
-  private UserRepository userRepository;
+  @Mock private UserRepository userRepository;
 
-  @InjectMocks
-  private UserRegistrationService cut;
+  @InjectMocks private UserRegistrationService cut;
 
   @Test
   void shouldNotReCreateExistingUserWrongStubbing() {
@@ -54,15 +48,14 @@ class UserRegistrationServiceTest {
   @Test
   void shouldNotReCreateExistingUserGeneric() {
     Mockito.when(userRepository.findByUsername(ArgumentMatchers.anyString()))
-      .thenReturn(new User());
+        .thenReturn(new User());
 
     User result = this.cut.registerUser("duke");
   }
 
   @Test
   void shouldFailDueToUnnecessaryStubbing() {
-    Mockito.when(userRepository.findByEmail(ArgumentMatchers.anyString()))
-      .thenReturn(new User());
+    Mockito.when(userRepository.findByEmail(ArgumentMatchers.anyString())).thenReturn(new User());
 
     // we won't use the .findByEmail() method internally
     User result = this.cut.registerUser("duke");
@@ -71,7 +64,7 @@ class UserRegistrationServiceTest {
   @Test
   void shouldPropagateException() {
     Mockito.when(userRepository.findByUsername("devil"))
-      .thenThrow(new RuntimeException("DEVIL'S SQL EXCEPTION"));
+        .thenThrow(new RuntimeException("DEVIL'S SQL EXCEPTION"));
 
     assertThrows(RuntimeException.class, () -> cut.registerUser("devil"));
 
@@ -83,11 +76,12 @@ class UserRegistrationServiceTest {
   void shouldCreateUnknownUser() {
     Mockito.when(userRepository.findByUsername("duke")).thenReturn(null);
     Mockito.when(userRepository.save(ArgumentMatchers.any(User.class)))
-      .thenAnswer(context -> {
-        User user = context.getArgument(0);
-        user.setId(42L);
-        return user;
-      });
+        .thenAnswer(
+            context -> {
+              User user = context.getArgument(0);
+              user.setId(42L);
+              return user;
+            });
 
     User result = this.cut.registerUser("duke");
 

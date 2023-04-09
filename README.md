@@ -14,7 +14,7 @@ You can find the source code for the various testing tools & libraries within `s
 
 The only exception to this rule is MicroShed Testing, which is part of the `jakarta-ee-example` project.
 
-**Current Status**: 20/30 tools and libraries are covered. The next release (25/30) is scheduled for 2022.
+**Current Status**: 20/30 tools and libraries are covered. The next release (25/30) is scheduled for Q2/2023.
 
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
 

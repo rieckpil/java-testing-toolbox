@@ -1,15 +1,13 @@
 package de.rieckpil.blog;
 
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-
 
 @Path("sample")
 @Produces(MediaType.TEXT_PLAIN)
@@ -19,9 +17,7 @@ public class SampleResource {
   @ConfigProperty(name = "message")
   private String message;
 
-  @Inject
-  @RestClient
-  private QuoteRestClient quoteRestClient;
+  @Inject @RestClient private QuoteRestClient quoteRestClient;
 
   @GET
   @Path("/message")

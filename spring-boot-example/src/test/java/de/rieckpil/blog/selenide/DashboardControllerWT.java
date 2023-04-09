@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -20,17 +20,17 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class DashboardControllerWT {
 
-  @LocalServerPort
-  private Integer port;
+  @LocalServerPort private Integer port;
 
   @RegisterExtension
-  static ScreenShooterExtension screenShooterExtension = new ScreenShooterExtension()
-    .to("target/selenide");
+  static ScreenShooterExtension screenShooterExtension =
+      new ScreenShooterExtension().to("target/selenide");
 
   @BeforeAll
   static void configure() {
     ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--no-sandbox", "--disable-dev-shm-usage", "--headless", "--disable-gpu");
+    chromeOptions.addArguments(
+        "--no-sandbox", "--disable-dev-shm-usage", "--headless", "--disable-gpu");
 
     Configuration.browserCapabilities = chromeOptions;
 

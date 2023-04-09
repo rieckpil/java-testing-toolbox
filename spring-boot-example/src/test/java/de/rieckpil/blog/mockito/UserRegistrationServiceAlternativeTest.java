@@ -14,11 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class UserRegistrationServiceAlternativeTest {
 
-  @Mock
-  private UserRepository userRepository;
+  @Mock private UserRepository userRepository;
 
-  @InjectMocks
-  private UserRegistrationService cut;
+  @InjectMocks private UserRegistrationService cut;
 
   private AutoCloseable openMocks;
 

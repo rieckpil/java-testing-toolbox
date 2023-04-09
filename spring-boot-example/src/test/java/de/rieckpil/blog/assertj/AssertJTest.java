@@ -1,5 +1,12 @@
 package de.rieckpil.blog.assertj;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 import de.rieckpil.blog.customer.Address;
 import de.rieckpil.blog.customer.Customer;
 import de.rieckpil.blog.customer.Order;
@@ -9,13 +16,6 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.within;
 
@@ -29,107 +29,98 @@ public class AssertJTest {
 
     Assertions.assertThat("duke".toUpperCase()).isEqualTo("DUKE");
 
-    Assertions.assertThat("dUkE".toLowerCase())
-      .isEqualTo("duke")
-      .hasSize(4)
-      .endsWith("e");
+    Assertions.assertThat("dUkE".toLowerCase()).isEqualTo("duke").hasSize(4).endsWith("e");
 
-    Assertions
-      .assertThatThrownBy(() -> {
-        throw new RuntimeException("Can't reach database on port 5432");
-      })
-      .hasMessageContaining("5432")
-      .isInstanceOf(RuntimeException.class)
-      .hasNoCause();
+    Assertions.assertThatThrownBy(
+            () -> {
+              throw new RuntimeException("Can't reach database on port 5432");
+            })
+        .hasMessageContaining("5432")
+        .isInstanceOf(RuntimeException.class)
+        .hasNoCause();
 
-    Assertions
-      .assertThatExceptionOfType(RuntimeException.class)
-      .isThrownBy(() -> {
-        throw new RuntimeException("Can't reach database on port 5432");
-      })
-      .withNoCause()
-      .withMessageContaining("5432");
+    Assertions.assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(
+            () -> {
+              throw new RuntimeException("Can't reach database on port 5432");
+            })
+        .withNoCause()
+        .withMessageContaining("5432");
   }
 
   @Test
   void customErrorMessage() {
-    Assertions.assertThatThrownBy(() -> {
-      boolean boardingComplete = false;
+    Assertions.assertThatThrownBy(
+        () -> {
+          boolean boardingComplete = false;
 
-      Assertions
-        .assertThat(boardingComplete)
-        .withFailMessage("Expecting boarding completed when last passenger enters the plane")
-        .isTrue();
-    });
+          Assertions.assertThat(boardingComplete)
+              .withFailMessage("Expecting boarding completed when last passenger enters the plane")
+              .isTrue();
+        });
   }
 
   @Test
   void softAssertions() {
-    Assertions
-      .assertThatExceptionOfType(AssertionError.class)
-      .isThrownBy(() -> {
-      SoftAssertions softAssertions = new SoftAssertions();
+    Assertions.assertThatExceptionOfType(AssertionError.class)
+        .isThrownBy(
+            () -> {
+              SoftAssertions softAssertions = new SoftAssertions();
 
-      softAssertions.assertThat("duke")
-        .hasSize(5)
-        .isEqualTo("ekud")
-        .startsWith("m");
+              softAssertions.assertThat("duke").hasSize(5).isEqualTo("ekud").startsWith("m");
 
-      softAssertions.assertAll();
-    });
+              softAssertions.assertAll();
+            });
   }
 
   @Test
   void advancedAssertions() {
 
-    Assertions
-      .assertThat(List.of("duke", "mike", "alice", "john"))
-      .containsAnyOf("mike", "duke")
-      .hasSizeBetween(3, 5)
-      .hasOnlyElementsOfType(String.class);
+    Assertions.assertThat(List.of("duke", "mike", "alice", "john"))
+        .containsAnyOf("mike", "duke")
+        .hasSizeBetween(3, 5)
+        .hasOnlyElementsOfType(String.class);
 
-    Assertions
-      .assertThat(List.of(
-        new User("duke", LocalDateTime.now().minusMonths(3)),
-        new User("alice", LocalDateTime.MIN)))
-      .extracting(User::getCreatedAt)
-      .filteredOn(createdAt -> createdAt.isBefore(LocalDateTime.now()))
-      .hasSize(2);
+    Assertions.assertThat(
+            List.of(
+                new User("duke", LocalDateTime.now().minusMonths(3)),
+                new User("alice", LocalDateTime.MIN)))
+        .extracting(User::getCreatedAt)
+        .filteredOn(createdAt -> createdAt.isBefore(LocalDateTime.now()))
+        .hasSize(2);
 
     // make sure to use org.assertj.core.groups.Tuple
-    Assertions
-      .assertThat(List.of(
-        new User(42L, "duke", LocalDateTime.now().minusMonths(3)),
-        new User(13L, "alice", LocalDateTime.MIN)))
-      .extracting(User::getId, User::getUsername)
-      .containsExactlyInAnyOrder(Tuple.tuple(13L, "alice"), Tuple.tuple(42L, "duke"));
+    Assertions.assertThat(
+            List.of(
+                new User(42L, "duke", LocalDateTime.now().minusMonths(3)),
+                new User(13L, "alice", LocalDateTime.MIN)))
+        .extracting(User::getId, User::getUsername)
+        .containsExactlyInAnyOrder(Tuple.tuple(13L, "alice"), Tuple.tuple(42L, "duke"));
 
-    Assertions
-      .assertThat(List.of("duke", "mike", "anna", "john"))
-      .allSatisfy(username -> {
-        Assertions.assertThat(username).hasSize(4);
-        Assertions.assertThat(username).isLowerCase();
-      });
+    Assertions.assertThat(List.of("duke", "mike", "anna", "john"))
+        .allSatisfy(
+            username -> {
+              Assertions.assertThat(username).hasSize(4);
+              Assertions.assertThat(username).isLowerCase();
+            });
 
-    Assertions
-      .assertThat(List.of("duke", "mike", "alice", "john"))
-      .anySatisfy(username -> {
-        Assertions.assertThat(username).endsWith("n");
-        Assertions.assertThat(username).isSubstringOf("johnny");
-      });
+    Assertions.assertThat(List.of("duke", "mike", "alice", "john"))
+        .anySatisfy(
+            username -> {
+              Assertions.assertThat(username).endsWith("n");
+              Assertions.assertThat(username).isSubstringOf("johnny");
+            });
 
-    Assertions
-      .assertThat(LocalDateTime.now())
-      .isCloseTo(LocalDateTime.now().plusHours(1), within(2, ChronoUnit.HOURS))
-      .isAfter(LocalDateTime.now().minusDays(1))
-      .isCloseToUtcNow(within(2, ChronoUnit.HOURS));
+    Assertions.assertThat(LocalDateTime.now())
+        .isCloseTo(LocalDateTime.now().plusHours(1), within(2, ChronoUnit.HOURS))
+        .isAfter(LocalDateTime.now().minusDays(1))
+        .isCloseToUtcNow(within(2, ChronoUnit.HOURS));
 
-    Assertions
-      .assertThat(BigDecimal.TEN)
-      .isNotNegative()
-      .isBetween(BigDecimal.ONE, BigDecimal.valueOf(20.0))
-      .isGreaterThanOrEqualTo(BigDecimal.ZERO)
-      .isNotZero();
+    Assertions.assertThat(BigDecimal.TEN)
+        .isNotNegative()
+        .isBetween(BigDecimal.ONE, BigDecimal.valueOf(20.0))
+        .isGreaterThanOrEqualTo(BigDecimal.ZERO)
+        .isNotZero();
   }
 
   @Test
@@ -137,13 +128,13 @@ public class AssertJTest {
 
     Customer customer = createTestCustomer("duke42");
 
-    CustomerAssert.assertThat(customer)
-      .isVIP()
-      .hasOrderVolumeGreaterThan(BigDecimal.TEN);
+    CustomerAssert.assertThat(customer).isVIP().hasOrderVolumeGreaterThan(BigDecimal.TEN);
 
-    Assertions.assertThatThrownBy(() -> CustomerAssert.assertThat(customer)
-      .isVIP()
-      .hasOrderVolumeGreaterThan(BigDecimal.valueOf(9999.99)));
+    Assertions.assertThatThrownBy(
+        () ->
+            CustomerAssert.assertThat(customer)
+                .isVIP()
+                .hasOrderVolumeGreaterThan(BigDecimal.valueOf(9999.99)));
   }
 
   private Customer createTestCustomer(String username) {
@@ -152,15 +143,18 @@ public class AssertJTest {
     customer.setTags(Set.of("VIP", "PLATINUM_MEMBER", "EARLY_BIRD"));
     customer.setUsername(username);
     customer.setAddress(new Address("Berlin", "Germany", "12347"));
-    customer.setOrders(List.of(
-      new Order(List.of(
-        new Product("MacBook Pro", BigDecimal.valueOf(1499.99), 3L),
-        new Product("Kindle Paperwhite", BigDecimal.valueOf(149.00), 10L)
-      ), "DEBIT"),
-      new Order(List.of(
-        new Product("Milk", BigDecimal.valueOf(0.99), 12L),
-        new Product("Chocolate", BigDecimal.valueOf(2.99), 42L)
-      ), "CREDIT_CARD")));
+    customer.setOrders(
+        List.of(
+            new Order(
+                List.of(
+                    new Product("MacBook Pro", BigDecimal.valueOf(1499.99), 3L),
+                    new Product("Kindle Paperwhite", BigDecimal.valueOf(149.00), 10L)),
+                "DEBIT"),
+            new Order(
+                List.of(
+                    new Product("Milk", BigDecimal.valueOf(0.99), 12L),
+                    new Product("Chocolate", BigDecimal.valueOf(2.99), 42L)),
+                "CREDIT_CARD")));
 
     return customer;
   }
