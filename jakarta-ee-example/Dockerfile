@@ -1,4 +1,4 @@
-FROM  open-liberty:23.0.0.2-kernel-slim-java17-openj9
+FROM  open-liberty:23.0.0.3-kernel-slim-java17-openj9
 
 COPY --chown=1001:0  src/main/liberty/config /config/
 
