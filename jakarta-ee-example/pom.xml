@@ -22,7 +22,7 @@
     <testcontainers.version>1.18.3</testcontainers.version>
     <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
     <mockserver-client-java.version>5.11.2</mockserver-client-java.version>
-    <rest-assured.version>4.3.0</rest-assured.version>
+    <rest-assured.version>5.3.1</rest-assured.version>
   </properties>
 
   <dependencyManagement>
