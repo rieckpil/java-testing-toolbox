@@ -19,7 +19,7 @@
     <junit-jupiter.version>5.9.3</junit-jupiter.version>
     <mockito-core.version>4.6.1</mockito-core.version>
     <microshed-testing.version>0.9.1</microshed-testing.version>
-    <testcontainers.version>1.17.6</testcontainers.version>
+    <testcontainers.version>1.18.3</testcontainers.version>
     <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
     <mockserver-client-java.version>5.11.2</mockserver-client-java.version>
     <rest-assured.version>4.3.0</rest-assured.version>
