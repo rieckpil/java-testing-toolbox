@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.0</version>
+    <version>3.3.5</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -15,31 +15,33 @@
   <version>1.0.0</version>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <junit4.version>4.13.2</junit4.version>
-    <testcontainers.version>1.16.2</testcontainers.version>
-    <mockito.version>4.1.0</mockito.version>
+    <testcontainers.version>1.19.0</testcontainers.version>
+    <mockito.version>5.4.0</mockito.version>
     <testng.version>7.4.0</testng.version>
     <hamcrest.version>2.2</hamcrest.version>
-    <assertj.version>3.19.0</assertj.version>
+    <assertj.version>3.27.3</assertj.version>
     <json-path.version>2.5.0</json-path.version>
     <jsonassert.version>1.5.0</jsonassert.version>
     <powermock.version>2.0.9</powermock.version>
-    <wiremock.version>2.27.2</wiremock.version>
+    <wiremock.version>3.10.0</wiremock.version>
     <mockwebserver.version>4.9.0</mockwebserver.version>
     <okio.version>2.10.0</okio.version>
     <okhttp3.version>4.9.0</okhttp3.version>
     <xmlunit.version>2.8.4</xmlunit.version>
-    <selenide.version>6.1.1</selenide.version>
-    <selenium.version>3.141.59</selenium.version>
+    <selenide.version>7.7.0</selenide.version>
+    <selenium.version>4.27.0</selenium.version>
     <microshed-testing.version>0.9</microshed-testing.version>
-    <awaitility.version>4.1.1</awaitility.version>
-    <rest-assured.version>4.3.3</rest-assured.version>
+    <awaitility.version>4.2.2</awaitility.version>
+    <rest-assured.version>5.5.0</rest-assured.version>
     <greenmail.version>1.6.5</greenmail.version>
-    <groovy.version>3.0.7</groovy.version>
-    <citrus.version>3.1.1</citrus.version>
+    <groovy.version>4.0.24</groovy.version>
     <gatling.version>3.7.2</gatling.version>
     <gatling-maven-plugin.version>4.0.1</gatling-maven-plugin.version>
+    <instancio.version>5.2.1</instancio.version>
+    <jgiven-maven-plugin.version>2.0.1</jgiven-maven-plugin.version>
+    <junit-jupiter.version>5.11.4</junit-jupiter.version>
   </properties>
 
   <dependencyManagement>
@@ -47,7 +49,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.7.0</version>
+        <version>${junit-jupiter.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -197,11 +199,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock-jre8</artifactId>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock</artifactId>
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>mockwebserver</artifactId>
@@ -253,36 +256,18 @@
       <version>${microshed-testing.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-core</artifactId>
-      <version>${citrus.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-java-dsl</artifactId>
-      <version>${citrus.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-jms</artifactId>
-      <version>${citrus.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.consol.citrus</groupId>
-      <artifactId>citrus-http</artifactId>
-      <version>${citrus.version}</version>
-      <scope>test</scope>
-    </dependency>
 
     <!-- Utility Libraries -->
     <dependency>
       <groupId>com.codeborne</groupId>
       <artifactId>selenide</artifactId>
       <version>${selenide.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.instancio</groupId>
+      <artifactId>instancio-junit</artifactId>
+      <version>${instancio.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -352,22 +337,18 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.5.2</version>
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.surefire</groupId>
             <artifactId>surefire-junit-platform</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.5.2</version>
           </dependency>
           <dependency>
             <groupId>org.apache.maven.surefire</groupId>
             <artifactId>surefire-testng</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.2.1</version>
           </dependency>
         </dependencies>
         <configuration>
@@ -381,7 +362,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.5.2</version>
         <executions>
           <execution>
             <goals>
@@ -400,11 +381,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.consol.citrus.mvn</groupId>
-        <artifactId>citrus-maven-plugin</artifactId>
-        <version>${citrus.version}</version>
-      </plugin>
-      <plugin>
         <groupId>io.gatling</groupId>
         <artifactId>gatling-maven-plugin</artifactId>
         <version>${gatling-maven-plugin.version}</version>
@@ -412,6 +388,7 @@
       <plugin>
         <groupId>com.tngtech.jgiven</groupId>
         <artifactId>jgiven-maven-plugin</artifactId>
+        <version>${jgiven-maven-plugin.version}</version>
         <executions>
           <execution>
             <goals>

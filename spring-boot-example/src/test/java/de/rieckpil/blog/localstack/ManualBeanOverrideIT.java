@@ -3,6 +3,7 @@ package de.rieckpil.blog.localstack;
 import java.io.IOException;
 import java.time.Duration;
 
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
@@ -43,8 +44,8 @@ class ManualBeanOverrideIT {
     public AmazonS3 amazonS3() {
       return AmazonS3ClientBuilder
         .standard()
-        .withCredentials(localStack.getDefaultCredentialsProvider())
-        .withEndpointConfiguration(localStack.getEndpointConfiguration(LocalStackContainer.Service.S3))
+        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
+          localStack.getEndpointOverride(LocalStackContainer.Service.S3).toString(), "us-east-1"))
         .build();
     }
 
@@ -52,8 +53,8 @@ class ManualBeanOverrideIT {
     public AmazonSQSAsync amazonSQS() {
       return AmazonSQSAsyncClientBuilder
         .standard()
-        .withCredentials(localStack.getDefaultCredentialsProvider())
-        .withEndpointConfiguration(localStack.getEndpointConfiguration(LocalStackContainer.Service.SQS))
+        .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
+          localStack.getEndpointOverride(LocalStackContainer.Service.S3).toString(), "us-east-1"))
         .build();
     }
   }
