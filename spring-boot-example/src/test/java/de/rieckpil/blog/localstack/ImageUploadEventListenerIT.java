@@ -31,7 +31,7 @@ public class ImageUploadEventListenerIT {
 
   @Container
   static LocalStackContainer localStack =
-    new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.19"))
+    new LocalStackContainer(DockerImageName.parse("localstack/localstack:4.0.1"))
       .withServices(Service.S3, Service.SQS)
       .withClasspathResourceMapping("/localstack", "/docker-entrypoint-initaws.d", READ_ONLY)
       .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
