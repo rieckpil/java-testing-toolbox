@@ -1,13 +1,12 @@
-cloud:
-  aws:
-    region:
-      static: eu-central-1
-    credentials:
-      access-key: foo
-      secret-key: bar
-    sns:
-      enabled: false
-    sqs:
-      enabled: false
-    stack:
-      enabled: false
+spring:
+  cloud:
+    aws:
+      region:
+        static: eu-central-1
+      credentials:
+        access-key: foo
+        secret-key: bar
+      sqs:
+        enabled: false
+      s3:
+        enabled: false
