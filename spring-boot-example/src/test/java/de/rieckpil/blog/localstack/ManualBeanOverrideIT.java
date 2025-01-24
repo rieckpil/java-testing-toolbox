@@ -14,6 +14,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.MountableFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
@@ -23,7 +24,6 @@ import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 
 import static org.awaitility.Awaitility.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.testcontainers.containers.BindMode.READ_ONLY;
 
 @Testcontainers
 @SpringBootTest(properties = "cloud.aws.sqs.enabled=true")
@@ -33,7 +33,7 @@ class ManualBeanOverrideIT {
   static LocalStackContainer localStack =
     new LocalStackContainer(DockerImageName.parse("localstack/localstack:4.0.1"))
       .withServices(LocalStackContainer.Service.S3, LocalStackContainer.Service.SQS)
-      .withClasspathResourceMapping("/localstack", "/docker-entrypoint-initaws.d", READ_ONLY)
+      .withCopyFileToContainer(MountableFile.forClasspathResource("localstack/", 0777), "/etc/localstack/init/ready.d")
       .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
 
   @Autowired
