@@ -139,7 +139,7 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <version>3.8.2</version>
         <configuration>
-          <libertyRuntimeVersion>24.0.0.1</libertyRuntimeVersion>
+          <libertyRuntimeVersion>24.0.0.12</libertyRuntimeVersion>
           <serverStartTimeout>60</serverStartTimeout>
         </configuration>
       </plugin>
