@@ -14,8 +14,8 @@
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jakarta.jakartaee-api.version>9.0.0</jakarta.jakartaee-api.version>
-    <microprofile.version>6.0</microprofile.version>
+    <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
+    <microprofile.version>5.0</microprofile.version>
     <junit-jupiter.version>5.11.2</junit-jupiter.version>
     <mockito-core.version>5.4.0</mockito-core.version>
     <microshed-testing.version>0.9.2</microshed-testing.version>
