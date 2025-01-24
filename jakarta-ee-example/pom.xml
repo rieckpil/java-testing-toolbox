@@ -22,7 +22,7 @@
     <testcontainers.version>1.19.0</testcontainers.version>
     <postgresql-jdbc-driver.version>42.2.16</postgresql-jdbc-driver.version>
     <mockserver-client-java.version>5.15.0</mockserver-client-java.version>
-    <rest-assured.version>5.3.1</rest-assured.version>
+    <rest-assured.version>5.5.0</rest-assured.version>
   </properties>
 
   <dependencyManagement>
@@ -62,7 +62,17 @@
       <groupId>org.glassfish</groupId>
       <artifactId>jakarta.json</artifactId>
       <version>2.0.1</version>
+    </dependency>
 
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>3.0.2</version>
     </dependency>
 
     <dependency>
