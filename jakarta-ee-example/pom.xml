@@ -106,6 +106,13 @@
       <version>${microshed-testing.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.microshed</groupId>
+      <artifactId>microshed-testing-core</artifactId>
+      <version>${microshed-testing.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.microshed</groupId>
       <artifactId>microshed-testing-testcontainers</artifactId>
