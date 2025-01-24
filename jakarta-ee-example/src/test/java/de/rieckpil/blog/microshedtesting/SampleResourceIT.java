@@ -3,6 +3,7 @@ package de.rieckpil.blog.microshedtesting;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.SharedContainerConfig;
 import org.microshed.testing.jupiter.MicroShedTest;
@@ -15,6 +16,7 @@ import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.MediaType.JSON_UTF_8;
 
 @MicroShedTest
+@Disabled("Rest Assured is not yet compatible with Jakarta EE 10")
 @SharedContainerConfig(SampleApplicationConfig.class)
 class SampleResourceIT {
 
