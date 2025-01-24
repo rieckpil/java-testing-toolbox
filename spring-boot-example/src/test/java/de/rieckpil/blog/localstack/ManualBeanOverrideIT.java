@@ -19,6 +19,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 
@@ -40,7 +41,7 @@ class ManualBeanOverrideIT {
   private S3Client s3Client;
 
   @Autowired
-  private SqsClient sqsClient;
+  private SqsAsyncClient sqsClient;
 
   @Test
   void shouldProcessIncomingUploadEventAndUploadThumbnailImage() throws IOException {
