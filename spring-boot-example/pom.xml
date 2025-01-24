@@ -31,7 +31,6 @@
     <xmlunit.version>2.10.0</xmlunit.version>
     <selenide.version>7.7.0</selenide.version>
     <selenium.version>4.27.0</selenium.version>
-    <microshed-testing.version>0.9</microshed-testing.version>
     <awaitility.version>4.2.2</awaitility.version>
     <rest-assured.version>5.5.0</rest-assured.version>
     <greenmail.version>2.1.2</greenmail.version>
@@ -237,12 +236,6 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>selenium</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.microshed</groupId>
-      <artifactId>microshed-testing-liberty</artifactId>
-      <version>${microshed-testing.version}</version>
       <scope>test</scope>
     </dependency>
 
