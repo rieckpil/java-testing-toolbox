@@ -1,13 +1,12 @@
-version: '3'
 services:
   database:
-    image: postgres:12.3
+    image: postgres:17
     environment:
       - POSTGRES_USER=testcontainers
       - POSTGRES_PASSWORD=secret
   keycloak:
-    image: jboss/keycloak:11.0.0
+    image: quay.io/keycloak/keycloak:18.0.2
+    command: [ 'start-dev --http-relative-path /auth' ]
     environment:
-      - KEYCLOAK_USER=testcontainers
-      - KEYCLOAK_PASSWORD=secret
-      - DB_VENDOR=h2
+      - KEYCLOAK_ADMIN=keycloak
+      - KEYCLOAK_ADMIN_PASSWORD=keycloak

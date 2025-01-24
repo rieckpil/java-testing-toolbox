@@ -1,14 +1,13 @@
-version: "3.8"
 services:
   database:
-    image: postgres:12.3
+    image: postgres:17
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=springboot
       - POSTGRES_PASSWORD=springboot
   localstack:
-    image: localstack/localstack:0.12.19
+    image: localstack/localstack:4.0.1
     ports:
       - "4566:4566"
     volumes:

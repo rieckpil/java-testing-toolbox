@@ -3,6 +3,7 @@ package de.rieckpil.blog.microshedtesting;
 import de.rieckpil.blog.Person;
 import io.restassured.http.ContentType;
 import io.restassured.http.Headers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.microshed.testing.SharedContainerConfig;
 import org.microshed.testing.jupiter.MicroShedTest;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MicroShedTest
+@Disabled("Rest Assured is not yet compatible with Jakarta EE 10")
 @SharedContainerConfig(SampleApplicationConfig.class)
 class PersonResourceIT {
 

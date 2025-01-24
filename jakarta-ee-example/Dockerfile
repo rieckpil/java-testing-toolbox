@@ -1,4 +1,4 @@
-FROM openliberty/open-liberty:21.0.0.9-kernel-slim-java11-openj9-ubi
+FROM icr.io/appcafe/open-liberty:24.0.0.12-kernel-slim-java21-openj9-ubi-minimal
 
 COPY --chown=1001:0  src/main/liberty/config /config/
 

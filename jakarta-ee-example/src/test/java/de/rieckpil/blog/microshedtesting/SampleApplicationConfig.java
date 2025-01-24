@@ -12,7 +12,7 @@ public class SampleApplicationConfig implements SharedContainerConfiguration {
 
   @Container
   public static PostgreSQLContainer<?> postgres =
-    new PostgreSQLContainer<>(DockerImageName.parse("postgres:12"))
+    new PostgreSQLContainer<>(DockerImageName.parse("postgres:17"))
       .withNetworkAliases("postgres")
       .withUsername("duke")
       .withPassword("s3cr3t")
@@ -20,7 +20,7 @@ public class SampleApplicationConfig implements SharedContainerConfiguration {
 
   @Container
   public static MockServerContainer mockServer =
-    new MockServerContainer(DockerImageName.parse("mockserver/mockserver:mockserver-5.11.2"))
+    new MockServerContainer(DockerImageName.parse("mockserver/mockserver:5.15.0"))
       .withNetworkAliases("mockserver");
 
   @Container

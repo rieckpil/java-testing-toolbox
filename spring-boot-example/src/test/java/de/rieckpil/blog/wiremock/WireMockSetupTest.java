@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class WireMockSetupTest {
+class WireMockSetupTest {
 
   private static WireMockServer wireMockServer;
 
