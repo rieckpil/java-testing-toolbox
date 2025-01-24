@@ -14,7 +14,7 @@ You can find the source code for the various testing tools & libraries within `s
 
 The only exception to this rule is MicroShed Testing, which is part of the `jakarta-ee-example` project.
 
-**Current Status**: 20/30 tools and libraries are covered. The final release (30/30) is scheduled for Q1 2024.
+**Current Status**: 21/30 tools and libraries are covered. The final release (30/30) is scheduled for Q1 2025.
 
 Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
 
@@ -30,7 +30,7 @@ Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java
 
 Requirements:
 
-- Java 11: `java -version`
+- Java 21: `java -version`
 - A running Docker engine (required for Testcontainers): `docker info`
 
 Build the project and run all tests with:
@@ -53,7 +53,6 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] JUnit 5
 - [x] TestNG
 - [x] Spock
-- [ ] ...
 
 ### Assertion Libraries
 
@@ -63,41 +62,34 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] XMLUnit
 - [x] JSONAssert
 - [x] REST Assured
-- [ ] ...
 
 ### Mocking Frameworks
 
 - [x] Mockito
 - [x] WireMock
 - [x] MockWebServer
-- [ ] PowerMock
-- [ ] ...
 
 ### Test Infrastructure
 
 - [x] Testcontainers
 - [x] LocalStack
 - [x] MicroShed Testing
-- [ ] Citrus
 - [x] GreenMail
-- [ ] Selenium
-- [ ] ...
+- [x] Selenide
+- [ ] Selenium (upcoming)
 
 ### Utility Libraries
 
-- [x] Selenide
 - [ ] Pact (upcoming)
-- [ ] Spring Cloud Contract (upcoming)
-- [ ] Diffblue
-- [ ] FitNesse
+- [ ] Diffblue (upcoming)
+- [ ] Pit (upcoming)
+- [ ] Instancio (upcoming)
+- [ ] ArchUnit (upcoming)
 - [ ] Awaitility (upcoming)
-- [ ] ...
 
 ### Performance Testing
 
-- [ ] JMH (upcoming)
-- [ ] JMeter (upcoming)
 - [x] Gatling
-- [ ] Quick Perf
 - [x] ApacheBench
-- [ ] ...
+- [ ] JMH (upcoming)
+- [ ] JfrUnit (upcoming)

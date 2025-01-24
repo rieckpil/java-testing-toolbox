@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Java 11: `java -version`
+- Java 21: `java -version`
 - a running Docker engine: `docker info`
 
 ## Run all tests
