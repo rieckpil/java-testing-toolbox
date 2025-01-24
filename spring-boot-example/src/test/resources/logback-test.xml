@@ -1,12 +1,14 @@
 <configuration>
-  <include resource="/org/springframework/boot/logging/logback/base.xml"/>
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-      </pattern>
-    </encoder>
-  </appender>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
   <root level="INFO">
-    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="CONSOLE"/>
   </root>
+
+  <!-- Noisy logs when shutting down the context, connection refuse messages for LocalStack⁄ -->
+  <logger name="io.awspring.cloud.sqs.listener.source" level="OFF"/>
+
+  <!-- Noisy logs when running test from the ProfileFileReader -->
+  <logger name="software.amazon.awssdk.profiles.internal" level="ERROR"/>
 </configuration>

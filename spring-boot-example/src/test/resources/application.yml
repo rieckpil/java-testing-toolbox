@@ -8,5 +8,3 @@ spring:
         secret-key: bar
       sqs:
         enabled: false
-      s3:
-        enabled: false
