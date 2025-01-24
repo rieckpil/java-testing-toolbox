@@ -18,13 +18,12 @@ class DockerComposeIT {
       .withExposedService("database_1", 5432, Wait.forListeningPort())
       .withExposedService("keycloak_1", 8080,
         Wait.forHttp("/auth").forStatusCode(200)
-        .withStartupTimeout(Duration.ofSeconds(30)));
-
+        .withStartupTimeout(Duration.ofSeconds(60)))
+      .withOptions("--compatibility");;
 
   @Test
   void dockerComposeTest() {
     System.out.println(environment.getServicePort("database_1", 5432));
     System.out.println(environment.getServicePort("keycloak_1", 8080));
   }
-
 }
