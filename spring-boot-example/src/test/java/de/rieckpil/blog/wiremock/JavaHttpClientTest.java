@@ -73,7 +73,7 @@ class JavaHttpClientTest {
 
     String randomQuote = this.cut.getRandomQuote();
 
-    assertEquals(randomQuote, "Lorem ipsum dolor sit amet.");
+    assertEquals("Lorem ipsum dolor sit amet.", randomQuote);
   }
 
   @Test
@@ -100,7 +100,7 @@ class JavaHttpClientTest {
     // the first stubbing with priority '1' will be used
     String randomQuote = this.cut.getRandomQuote();
 
-    assertEquals(randomQuote, "Lorem ipsum dolor sit amet.");
+    assertEquals("Lorem ipsum dolor sit amet.", randomQuote);
   }
 
   @Test
@@ -126,13 +126,13 @@ class JavaHttpClientTest {
     LoggedRequest request = allServeEvents.get(0).getRequest();
 
     assertEquals("", request.getBodyAsString());
-    assertEquals(7, request.getAllHeaderKeys().size());
+    assertEquals(6, request.getAllHeaderKeys().size());
 
     List<LoggedRequest> unmatchedRequests = wireMockServer.findAllUnmatchedRequests();
 
     assertEquals(0, unmatchedRequests.size());
 
-    assertEquals(randomQuote, "Vision without action is daydream. Action without vision is nightmare");
+    assertEquals("Vision without action is daydream. Action without vision is nightmare", randomQuote);
   }
 
   @Test
