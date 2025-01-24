@@ -10,4 +10,3 @@ services:
     environment:
       - KEYCLOAK_ADMIN=keycloak
       - KEYCLOAK_ADMIN_PASSWORD=keycloak
-      - KEYCLOAK_DB=dev-file

@@ -6,9 +6,9 @@ import java.time.Duration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
@@ -20,14 +20,14 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
-import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 
 import static org.awaitility.Awaitility.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS;
 
 @Testcontainers
-@SpringBootTest(properties = "cloud.aws.sqs.enabled=true")
+@SpringBootTest
 class ManualBeanOverrideIT {
 
   @Container
@@ -36,6 +36,14 @@ class ManualBeanOverrideIT {
       .withServices(LocalStackContainer.Service.S3, LocalStackContainer.Service.SQS)
       .withCopyFileToContainer(MountableFile.forClasspathResource("localstack/", 0777), "/etc/localstack/init/ready.d")
       .waitingFor(Wait.forLogMessage(".*Initialized\\.\n", 1));
+
+  @DynamicPropertySource
+  static void configureLocalStackAccess(DynamicPropertyRegistry registry) {
+    registry.add("spring.cloud.aws.credentials.secret-key", () -> "foo");
+    registry.add("spring.cloud.aws.credentials.access-key", () -> "bar");
+    registry.add("spring.cloud.aws.sqs.enabled", () -> "true");
+    registry.add("spring.cloud.aws.endpoint", () -> localStack.getEndpointOverride(SQS));
+  }
 
   @Autowired
   private S3Client s3Client;
