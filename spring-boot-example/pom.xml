@@ -43,6 +43,7 @@
     <junit-jupiter.version>5.11.4</junit-jupiter.version>
     <spring-cloud-aws.version>3.3.0</spring-cloud-aws.version>
     <jfrunit.version>1.0.0.Alpha2</jfrunit.version>
+    <jmh-core.version>1.37</jmh-core.version>
   </properties>
 
   <dependencyManagement>
@@ -295,6 +296,18 @@
       <artifactId>jfrunit-core</artifactId>
       <version>${jfrunit.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${jmh-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh-core.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Behavior Driven Development using JGiven -->
