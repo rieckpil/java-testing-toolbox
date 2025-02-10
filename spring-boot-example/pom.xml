@@ -42,6 +42,7 @@
     <jgiven-maven-plugin.version>2.0.1</jgiven-maven-plugin.version>
     <junit-jupiter.version>5.11.4</junit-jupiter.version>
     <spring-cloud-aws.version>3.3.0</spring-cloud-aws.version>
+    <jfrunit.version>1.0.0.Alpha2</jfrunit.version>
   </properties>
 
   <dependencyManagement>
@@ -287,6 +288,12 @@
       <groupId>io.gatling.highcharts</groupId>
       <artifactId>gatling-charts-highcharts</artifactId>
       <version>${gatling.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.moditect.jfrunit</groupId>
+      <artifactId>jfrunit-core</artifactId>
+      <version>${jfrunit.version}</version>
       <scope>test</scope>
     </dependency>
 
