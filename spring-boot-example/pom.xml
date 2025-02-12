@@ -44,6 +44,7 @@
     <spring-cloud-aws.version>3.3.0</spring-cloud-aws.version>
     <jfrunit.version>1.0.0.Alpha2</jfrunit.version>
     <jmh-core.version>1.37</jmh-core.version>
+    <pitest.version>1.18.0</pitest.version>
   </properties>
 
   <dependencyManagement>
@@ -440,6 +441,18 @@
             </systemProperty>
           </systemProperties>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>${pitest.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
