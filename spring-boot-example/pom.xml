@@ -453,6 +453,14 @@
             <version>1.2.1</version>
           </dependency>
         </dependencies>
+        <configuration>
+          <targetClasses>
+            <param>de.rieckpil.blog.pit.*</param>
+          </targetClasses>
+          <targetTests>
+            <param>de.rieckpil.blog.pit.*Test</param>
+          </targetTests>
+        </configuration>
       </plugin>
     </plugins>
   </build>
