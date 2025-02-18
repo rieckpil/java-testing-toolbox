@@ -45,6 +45,7 @@
     <jfrunit.version>1.0.0.Alpha2</jfrunit.version>
     <jmh-core.version>1.37</jmh-core.version>
     <pitest.version>1.18.0</pitest.version>
+    <pact.version>4.6.17</pact.version>
   </properties>
 
   <dependencyManagement>
@@ -83,6 +84,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -283,6 +288,18 @@
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit-junit5</artifactId>
       <version>${archunit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>au.com.dius.pact.consumer</groupId>
+      <artifactId>junit5</artifactId>
+      <version>${pact.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>au.com.dius.pact.provider</groupId>
+      <artifactId>junit5</artifactId>
+      <version>${pact.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- Performance Testing -->
