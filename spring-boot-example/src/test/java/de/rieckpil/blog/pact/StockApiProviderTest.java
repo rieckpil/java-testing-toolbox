@@ -8,6 +8,7 @@ import au.com.dius.pact.provider.junitsupport.State;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
 import au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors;
 import au.com.dius.pact.provider.junitsupport.loader.SelectorBuilder;
+import de.rieckpil.blog.Application;
 import org.apache.hc.core5.http.HttpRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestTemplate;
@@ -18,19 +19,19 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @Provider("stock-api")
-@PactBroker
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@PactBroker(url = "localhost:9292")
+@SpringBootTest(webEnvironment = RANDOM_PORT, classes = Application.class)
 public class StockApiProviderTest {
 
-  @PactBrokerConsumerVersionSelectors
-  public static SelectorBuilder consumerVersionSelectors() {
-    // Select Pacts for consumers deployed or released to production, those on the main branch
-    // and those on a named branch step11, for use in our workshop
-    return new SelectorBuilder()
-      .deployedOrReleased()
-      .mainBranch()
-      .branch("step11");
-  }
+//  @PactBrokerConsumerVersionSelectors
+//  public static SelectorBuilder consumerVersionSelectors() {
+//    // Select Pacts for consumers deployed or released to production, those on the main branch
+//    // and those on a named branch step11, for use in our workshop
+//    return new SelectorBuilder()
+//      .deployedOrReleased()
+//      .mainBranch()
+//      .branch("step11");
+//  }
 
   @LocalServerPort
   int port;

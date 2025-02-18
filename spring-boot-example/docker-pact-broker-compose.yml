@@ -1,0 +1,8 @@
+services:
+  pact-broker:
+    image: pactfoundation/pact-broker:latest-multi
+    ports:
+      - "9292:9292"
+    environment:
+      PACT_BROKER_DATABASE_URL: "sqlite:///tmp/pact_broker.sqlite3"
+      PACT_BROKER_LOG_LEVEL: "debug"
