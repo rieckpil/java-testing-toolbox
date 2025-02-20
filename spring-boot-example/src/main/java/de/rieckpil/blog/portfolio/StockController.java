@@ -19,8 +19,8 @@ public class StockController {
 
   // Dummy implementation that would reside in a separate project/application
   @GetMapping
-  @RequestMapping("/{SYMBOL}/price")
-  public ObjectNode getStockPrice(@PathVariable String symbol) {
+  @RequestMapping("/{symbol}/price")
+  public ObjectNode getStockPrice(@PathVariable("symbol") String symbol) {
     return objectMapper.createObjectNode()
       .put("symbol", symbol)
       .put("price", 42.42)

@@ -446,6 +446,16 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>au.com.dius.pact.provider</groupId>
+        <artifactId>maven</artifactId>
+        <version>4.1.11</version>
+        <configuration>
+          <pactBrokerPassword>pact-sample</pactBrokerPassword>
+          <pactBrokerUsername>pact-sample</pactBrokerUsername>
+          <pactBrokerUrl>http://localhost:9292/</pactBrokerUrl>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.0.0</version>

@@ -1,8 +1,30 @@
 services:
+  postgres:
+    image: postgres
+    healthcheck:
+      test: psql postgres --command "select 1" -U postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+
   pact-broker:
     image: pactfoundation/pact-broker:latest-multi
+    links:
+      - postgres
     ports:
       - "9292:9292"
+    restart: always
     environment:
-      PACT_BROKER_DATABASE_URL: "sqlite:///tmp/pact_broker.sqlite3"
-      PACT_BROKER_LOG_LEVEL: "debug"
+      PACT_BROKER_BASIC_AUTH_USERNAME: pact-sample
+      PACT_BROKER_BASIC_AUTH_PASSWORD: pact-sample
+      PACT_BROKER_DATABASE_USERNAME: postgres
+      PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: postgres
+      PACT_BROKER_DATABASE_CONNECT_MAX_RETRIES: "10"
+      PACT_BROKER_PUBLIC_HEARTBEAT: "true"
+      PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http
+      PACT_BROKER_WEBHOOK_HOST_WHITELIST: host.docker.internal

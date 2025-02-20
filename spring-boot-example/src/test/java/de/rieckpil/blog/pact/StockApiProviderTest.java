@@ -6,11 +6,11 @@ import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvide
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.State;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
-import au.com.dius.pact.provider.junitsupport.loader.PactBrokerConsumerVersionSelectors;
-import au.com.dius.pact.provider.junitsupport.loader.SelectorBuilder;
+import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
 import de.rieckpil.blog.Application;
 import org.apache.hc.core5.http.HttpRequest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,20 +18,11 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+@Disabled("Requires running Pact Broker, see Docker Compose")
 @Provider("stock-api")
-@PactBroker(url = "localhost:9292")
+@PactBroker(url = "http://localhost:9292/", authentication =  @PactBrokerAuth(username = "pact-sample", password = "pact-sample"))
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = Application.class)
 public class StockApiProviderTest {
-
-//  @PactBrokerConsumerVersionSelectors
-//  public static SelectorBuilder consumerVersionSelectors() {
-//    // Select Pacts for consumers deployed or released to production, those on the main branch
-//    // and those on a named branch step11, for use in our workshop
-//    return new SelectorBuilder()
-//      .deployedOrReleased()
-//      .mainBranch()
-//      .branch("step11");
-//  }
 
   @LocalServerPort
   int port;
@@ -47,7 +38,7 @@ public class StockApiProviderTest {
     context.verifyInteraction();
   }
 
-  @State("Stock data exists for AAPL")
+  @State("Stock AAPL exists and market is open")
   void toAppleStockExists() {
     // Prepare provider data for the test, e.g., inserting stock data into a mock database
   }
