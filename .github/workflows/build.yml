@@ -52,11 +52,13 @@ jobs:
         run: docker compose --file spring-boot-example/docker-compose.yml up -d
 
       - name: Run Gatling performance tests
+        working-directory: spring-boot-example
         run: |
-          mvn --file spring-boot-example/pom.xml -B spring-boot:run &
-          mvn --file spring-boot-example/pom.xml -B gatling:test
+          ./mvnw -B spring-boot:run &
+          ./mvnw -B gatling:test
 
       - name: Run ApacheBench performance tests
+        working-directory: spring-boot-example
         run: |
-          mvn --file spring-boot-example/pom.xml -B spring-boot:run &
-          ab -p spring-boot-example/src/test/resources/apachebench/create-customer-request.json -T application/json -c 10 -n 1000 http://localhost:8080/api/customers
+          ./mvnw -B spring-boot:run &
+          ab -p src/test/resources/apachebench/create-customer-request.json -T application/json -c 10 -n 1000 http://localhost:8080/api/customers
