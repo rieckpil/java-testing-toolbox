@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "ignorePaths": [],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "jakarta-ee-example/src/test/java/.+\\.java$",
+        "spring-boot-example/src/test/java/.+\\.java$"
+      ],
+      "matchStrings": [
+        "\"(?<depName>.*?):(?<currentValue>.*?)\""
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "npm": {
+    "enabled": false
+  }
+}
