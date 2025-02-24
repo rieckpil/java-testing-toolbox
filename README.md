@@ -1,5 +1,7 @@
 # Hands-On Introduction to the Java Testing Ecosystem
 
+This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
+
 <p align="center">
   <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
     <img src="https://rieckpil.de/wp-content/uploads/2021/04/testing-tools-and-libraries-every-java-developer-must-know-book-cover-1-e1617971322966.png" alt=" Book Cover"/>
@@ -21,10 +23,6 @@ Each tool is presented in a **cookbook-style format**, with clear explanations a
 - Explore the Java testing ecosystem through practical, real-world examples.
 - Apply testing best practices to your Spring Boot, Jakarta EE, or any Java application.
 - Gain hands-on experience with each tool through dedicated examples and exercises.
-
-This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
-
-You can find the source code for the various testing tools & libraries within `spring-boot-example/src/test/java/de/rieckpil/blog`. Each tool & library has its dedicated Java package.
 
 ## Current Status
 
