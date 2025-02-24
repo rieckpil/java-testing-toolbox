@@ -1,7 +1,5 @@
 # Hands-On Introduction to the Java Testing Ecosystem
 
-[![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
-
 <p align="center">
   <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
     <img src="https://rieckpil.de/wp-content/uploads/2021/04/testing-tools-and-libraries-every-java-developer-must-know-book-cover-1-e1617971322966.png" alt=" Book Cover"/>
@@ -29,6 +27,8 @@ This repository contains the source code for the book *30 Testing Tools & Librar
 You can find the source code for the various testing tools & libraries within `spring-boot-example/src/test/java/de/rieckpil/blog`. Each tool & library has its dedicated Java package.
 
 ## Current Status
+
+[![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
 
 The book is now complete with 30/30 tools and libraries covered.
 
