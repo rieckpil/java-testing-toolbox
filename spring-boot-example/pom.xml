@@ -24,7 +24,7 @@
     <hamcrest.version>3.0</hamcrest.version>
     <assertj.version>3.27.3</assertj.version>
     <json-path.version>2.9.0</json-path.version>
-    <jsonassert.version>1.5.0</jsonassert.version>
+    <jsonassert.version>1.5.3</jsonassert.version>
     <wiremock.version>3.3.1</wiremock.version>
     <mockwebserver.version>4.9.0</mockwebserver.version>
     <okio.version>3.10.2</okio.version>
