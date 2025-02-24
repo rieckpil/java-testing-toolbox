@@ -1,12 +1,12 @@
 # Hands-On Introduction to the Java Testing Ecosystem
 
-This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
-
 <p align="center">
   <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
     <img src="https://rieckpil.de/wp-content/uploads/2021/04/testing-tools-and-libraries-every-java-developer-must-know-book-cover-1-e1617971322966.png" alt=" Book Cover"/>
   </a>
 </p>
+
+This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
 ## About the Book
 
@@ -47,7 +47,7 @@ The only exception is MicroShed Testing, which is part of the jakarta-ee-example
 Requirements:
 
 - Java 21: Verify with `java -version`
-- A running Docker engine (required for Testcontainers): `docker info`
+- A running Docker engine: `docker info`
 
 Build the project and run all tests with:
 
