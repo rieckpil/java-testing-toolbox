@@ -1,6 +1,6 @@
 # Hands-On Introduction to the Java Testing Ecosystem
 
-[![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
+[![Maven Build](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/rieckpil/java-testing-ecosystem/actions/workflows/build.yml)
 
 <p align="center">
   <a href="https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/">
@@ -8,29 +8,47 @@
   </a>
 </p>
 
+## About the Book
+
+Testing is a critical part of software development, and **having** **the** **right tools** can make all the difference.
+
+This book introduces you to **30 essential testing tools and libraries**, carefully selected to cover a wide range of testing needs—from unit testing and assertions to mocking, integration testing, and performance testing.
+
+Each tool is presented in a **cookbook-style format**, with clear explanations and **hands-on examples** that you can apply directly to your projects.
+
+## What You'll Learn
+
+- Enrich your testing toolbox with 30 carefully curated tools and libraries.
+- Choose the right tool for the job by understanding the strengths and use cases of each.
+- Explore the Java testing ecosystem through practical, real-world examples.
+- Apply testing best practices to your Spring Boot, Jakarta EE, or any Java application.
+- Gain hands-on experience with each tool through dedicated examples and exercises.
+
 This repository contains the source code for the book *30 Testing Tools & Libraries Every Java Developer Must Know*.
 
 You can find the source code for the various testing tools & libraries within `spring-boot-example/src/test/java/de/rieckpil/blog`. Each tool & library has its dedicated Java package.
 
-The only exception to this rule is MicroShed Testing, which is part of the `jakarta-ee-example` project.
+## Current Status
 
-**Current Status**: 21/30 tools and libraries are covered. The final release (30/30) is scheduled for Q1 2025.
+The book is now complete with 30/30 tools and libraries covered.
 
-Grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
+You can grab your copy [here](https://rieckpil.de/testing-tools-and-libraries-every-java-developer-must-know/).
 
-## Goals of the Book
+## Repository Overview
+This repository contains the source code for the examples used in the book. The examples are organized into two projects:
 
-- Enrich your existing testing toolbox
-- Use the right tool for the job
-- Inform about various tools & libraries of the Java testing ecosystem
-- Cookbook-style introduction for each testing tool & library
-- Hands-on testing examples that apply for testing any Java application
+- `spring-boot-example`: Demonstrates testing tools and libraries in the context of a Spring Boot application. You'll find most of the code examples here.
+- `jakarta-ee-example`: Showcases testing tools and libraries using a Jakarta EE application.
+
+Each tool and library has its dedicated Java package within the `spring-boot-example/src/test/java/de/rieckpil/blog` directory of the respective project.
+
+The only exception is MicroShed Testing, which is part of the jakarta-ee-example project.
 
 ## Build & Test
 
 Requirements:
 
-- Java 21: `java -version`
+- Java 21: Verify with `java -version`
 - A running Docker engine (required for Testcontainers): `docker info`
 
 Build the project and run all tests with:
@@ -43,18 +61,14 @@ cd jakarta-ee-example
 ./mvnw verify
 ```
 
-## Content
-
-The book uses a Spring Boot and Jakarta EE application to demonstrate the different tools & libraries. Both sample applications only use a minimal subset of Spring Boot/Jakarta EE features so that you can easily apply the knowledge to your tech stack.
-
-### Test Frameworks
+### Covered Test Frameworks
 
 - [x] JUnit 4
 - [x] JUnit 5
 - [x] TestNG
 - [x] Spock
 
-### Assertion Libraries
+### Covered Assertion Libraries
 
 - [x] AssertJ
 - [x] JsonPath
@@ -63,33 +77,37 @@ The book uses a Spring Boot and Jakarta EE application to demonstrate the differ
 - [x] JSONAssert
 - [x] REST Assured
 
-### Mocking Frameworks
+### Covered Mocking Frameworks
 
 - [x] Mockito
 - [x] WireMock
 - [x] MockWebServer
 
-### Test Infrastructure
+### Covered Test Infrastructure
 
 - [x] Testcontainers
 - [x] LocalStack
 - [x] MicroShed Testing
 - [x] GreenMail
 - [x] Selenide
-- [ ] Selenium (upcoming)
+- [x] Selenium
 
-### Utility Libraries
+### Covered Behavior Driven Testing (BDT)
 
-- [ ] Pact (upcoming)
-- [ ] Diffblue (upcoming)
-- [ ] Pit (upcoming)
-- [ ] Instancio (upcoming)
-- [ ] ArchUnit (upcoming)
-- [ ] Awaitility (upcoming)
+- [x] JGiven
 
-### Performance Testing
+### Covered Utility Libraries
+
+- [x] Pact
+- [x] Diffblue
+- [x] Pit
+- [x] Instancio
+- [x] ArchUnit
+- [x] Awaitility
+
+### Covered Performance Testing Tools
 
 - [x] Gatling
 - [x] ApacheBench
-- [ ] JMH (upcoming)
-- [ ] JfrUnit (upcoming)
+- [x] JMH
+- [x] JfrUnit
