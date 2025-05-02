@@ -39,7 +39,7 @@
     <groovy.version>4.0.24</groovy.version>
     <gatling.version>3.13.1</gatling.version>
     <gatling-maven-plugin.version>4.12.2</gatling-maven-plugin.version>
-    <instancio.version>5.2.1</instancio.version>
+    <instancio.version>5.3.0</instancio.version>
     <jgiven-maven-plugin.version>2.0.1</jgiven-maven-plugin.version>
     <spring-cloud-aws.version>3.3.0</spring-cloud-aws.version>
     <jfrunit.version>1.0.0.Alpha2</jfrunit.version>
