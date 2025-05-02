@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         projects: [ 'spring-boot-example', 'jakarta-ee-example' ]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: ${{ matrix.projects }}
     steps:
       - name: Checkout code
@@ -34,7 +34,7 @@ jobs:
         run: find . -type f -path "*test-reports/*-output.txt" -exec tail -n +1 {} +
 
   run-performance-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: performance-tests
     steps:
       - name: Checkout code
