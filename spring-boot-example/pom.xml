@@ -381,6 +381,9 @@
         <dependencies>
         </dependencies>
         <configuration>
+          <systemPropertyVariables>
+            <disablePactVerification>true</disablePactVerification>
+          </systemPropertyVariables>
           <includes>
             <include>**/*Spec.java</include>
             <include>**/*Test.java</include>

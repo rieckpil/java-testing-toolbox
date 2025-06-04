@@ -62,3 +62,39 @@ jobs:
         run: |
           ./mvnw -B spring-boot:run &
           ab -p src/test/resources/apachebench/create-customer-request.json -T application/json -c 10 -n 1000 http://localhost:8080/api/customers
+
+  pact-contract-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    name: pact-contract-tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'adopt'
+          java-package: 'jdk'
+          cache: 'maven'
+
+      - name: Start Pact Broker infrastructure
+        run: docker compose --file spring-boot-example/docker-pact-broker-compose.yml up -d
+
+      - name: Run consumer contract tests
+        working-directory: spring-boot-example
+        run: ./mvnw -B test -Dtest=StockApiContractTest
+
+      - name: Publish pacts to broker
+        working-directory: spring-boot-example
+        run: ./mvnw -B pact:publish
+
+      - name: Run provider verification tests
+        working-directory: spring-boot-example
+        run: ./mvnw -B test -Dtest=StockApiProviderTest -DdisablePactVerification=false
+
+      - name: Clean up Docker containers
+        if: always()
+        run: |
+          docker compose --file spring-boot-example/docker-pact-broker-compose.yml down -v
