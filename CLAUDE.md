@@ -48,6 +48,16 @@ docker-compose up -d
 
 # Generate JGiven reports
 ./mvnw jgiven:report
+
+# Run Pact consumer tests
+./mvnw test -Dtest=StockApiContractTest
+
+# Publish pacts to broker (requires running Pact Broker)
+docker-compose -f docker-pact-broker-compose.yml up -d
+./mvnw pact:publish
+
+# Run Pact provider verification tests (by default skipped with system property)
+./mvnw test -Dtest=StockApiProviderTest
 ```
 
 ### Jakarta EE Example

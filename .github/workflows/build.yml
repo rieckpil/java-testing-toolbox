@@ -65,6 +65,7 @@ jobs:
 
   pact-contract-tests:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     name: pact-contract-tests
     steps:
       - name: Checkout code
@@ -81,18 +82,6 @@ jobs:
       - name: Start Pact Broker infrastructure
         run: docker compose --file spring-boot-example/docker-pact-broker-compose.yml up -d
 
-      - name: Wait for Pact Broker to be ready
-        run: |
-          echo "Waiting for Pact Broker to be ready..."
-          for i in {1..30}; do
-            if curl -f http://localhost:9292 > /dev/null 2>&1; then
-              echo "Pact Broker is ready!"
-              break
-            fi
-            echo "Waiting for Pact Broker... ($i/30)"
-            sleep 2
-          done
-
       - name: Run consumer contract tests
         working-directory: spring-boot-example
         run: ./mvnw -B test -Dtest=StockApiContractTest
@@ -103,10 +92,9 @@ jobs:
 
       - name: Run provider verification tests
         working-directory: spring-boot-example
-        run: ./mvnw -B test -Dtest=StockApiProviderTest
+        run: ./mvnw -B test -Dtest=StockApiProviderTest -DdisablePactVerification=false
 
       - name: Clean up Docker containers
         if: always()
         run: |
           docker compose --file spring-boot-example/docker-pact-broker-compose.yml down -v
-          docker compose --file spring-boot-example/docker-compose.yml down -v

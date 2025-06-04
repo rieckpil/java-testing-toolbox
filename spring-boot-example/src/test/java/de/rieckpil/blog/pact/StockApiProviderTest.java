@@ -10,16 +10,16 @@ import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
 import de.rieckpil.blog.Application;
 import org.apache.hc.core5.http.HttpRequest;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@Disabled("Requires running Pact Broker, see Docker Compose")
 @Provider("stock-api")
+@DisabledIfSystemProperty(named = "disablePactVerification", matches = "true", disabledReason = "Requires running Pact Broker, see Docker Compose")
 @PactBroker(url = "http://localhost:9292/", authentication =  @PactBrokerAuth(username = "pact-sample", password = "pact-sample"))
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = Application.class)
 public class StockApiProviderTest {

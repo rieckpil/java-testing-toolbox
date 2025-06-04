@@ -46,6 +46,7 @@
     <jmh-core.version>1.37</jmh-core.version>
     <pitest.version>1.18.0</pitest.version>
     <pact.version>4.6.17</pact.version>
+    <disablePactVerification>true</disablePactVerification>
   </properties>
 
   <dependencyManagement>
