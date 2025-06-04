@@ -1,4 +1,4 @@
-package au.com.dius.pactworkshop.provider;
+package de.rieckpil.blog.pact;
 
 import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;

@@ -62,3 +62,51 @@ jobs:
         run: |
           ./mvnw -B spring-boot:run &
           ab -p src/test/resources/apachebench/create-customer-request.json -T application/json -c 10 -n 1000 http://localhost:8080/api/customers
+
+  pact-contract-tests:
+    runs-on: ubuntu-24.04
+    name: pact-contract-tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'adopt'
+          java-package: 'jdk'
+          cache: 'maven'
+
+      - name: Start Pact Broker infrastructure
+        run: docker compose --file spring-boot-example/docker-pact-broker-compose.yml up -d
+
+      - name: Wait for Pact Broker to be ready
+        run: |
+          echo "Waiting for Pact Broker to be ready..."
+          for i in {1..30}; do
+            if curl -f http://localhost:9292 > /dev/null 2>&1; then
+              echo "Pact Broker is ready!"
+              break
+            fi
+            echo "Waiting for Pact Broker... ($i/30)"
+            sleep 2
+          done
+
+      - name: Run consumer contract tests
+        working-directory: spring-boot-example
+        run: ./mvnw -B test -Dtest=StockApiContractTest
+
+      - name: Publish pacts to broker
+        working-directory: spring-boot-example
+        run: ./mvnw -B pact:publish
+
+      - name: Run provider verification tests
+        working-directory: spring-boot-example
+        run: ./mvnw -B test -Dtest=StockApiProviderTest
+
+      - name: Clean up Docker containers
+        if: always()
+        run: |
+          docker compose --file spring-boot-example/docker-pact-broker-compose.yml down -v
+          docker compose --file spring-boot-example/docker-compose.yml down -v
